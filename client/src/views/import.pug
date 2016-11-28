@@ -1,0 +1,12 @@
+extends ../templates/layout
+
+block content
+
+    h1 Import
+
+    form#importForm()
+        input(type='text' name='filename')
+        button(type='submit') Submit
+
+block scripts
+    script(src="/scripts/import.js")

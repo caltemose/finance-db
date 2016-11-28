@@ -1,0 +1,15 @@
+extends layout
+
+block content
+
+    h1 Import
+
+    p Import a CSV file downloaded from USAA.
+
+    form#importForm(action='/api/import')
+        input(type=text name=filename)
+        button(type=submit) Import
+        #results
+
+block scripts
+    script(src='scripts/import.js')

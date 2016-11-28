@@ -1,0 +1,21 @@
+{
+  "name": "finances-db-client",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "gulp"
+  },
+  "author": "Chad L. Altemose",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.15.3",
+    "babel-preset-latest": "^6.16.0",
+    "browser-sync": "^2.18.2",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-pug": "^3.1.0",
+    "gulp-sass": "^2.3.2",
+    "run-sequence": "^1.2.2"
+  }
+}
