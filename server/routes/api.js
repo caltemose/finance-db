@@ -6,7 +6,7 @@ module.exports = function (app) {
 
     app.post('/api/import', (req, res) => {
         console.log(req.body)
-        res.json({ success: true, fileToImport: req.body.file })
+        res.jsonp({ success: true, fileToImport: req.body.file })
     })
 
 }

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const express = require('express')
+// const cors = require('express-cors')
 
 const middleware = require('./middleware')
 const routes = require('./routes')

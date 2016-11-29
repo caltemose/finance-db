@@ -15,7 +15,7 @@ class ImportView {
             const data = { file: this.input.value }
             axios.post('http://localhost:3333/api/import', data)
                 .then((response) => {
-                    console.log(response)
+                    console.log(response.data)
                 })
                 .catch((error) => {
                     console.log(error)

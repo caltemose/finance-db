@@ -4,9 +4,14 @@ const gulp = require('gulp')
 const del = require('del')
 const pug = require('gulp-pug')
 const sass = require('gulp-sass')
-const babel = require('gulp-babel')
 const browserSync = require('browser-sync').create()
 const runSequence = require('run-sequence')
+
+const babelify = require('babelify')
+const browserify = require('browserify')
+const es = require('event-stream')
+const source = require('vinyl-source-stream')
+const rename = require('gulp-rename')
 
 const globals = require('./src/data/globals')
 
@@ -14,7 +19,7 @@ const config = {
     build: './build',
     views: './src/views/**/*',
     sass: './src/styles/main.sass',
-    scripts: './src/scripts/index.js'
+    scripts: ['./src/scripts/index.js', './src/scripts/import.js']
 }
 
 gulp.task('clean', function (next) {
@@ -37,14 +42,27 @@ gulp.task('styles', function () {
         .pipe(browserSync.stream())
 })
 
-gulp.task('scripts', function () {
-    return gulp.src(['src/scripts/index.js', 'src/scripts/import.js'])
-        .pipe(babel({
-            presets: ['latest']
-        }))
-        .pipe(gulp.dest(config.build + '/scripts'))
-        .pipe(browserSync.stream())
-})
+gulp.task('scripts', function() {
+    // map them to our stream function
+    var tasks = config.scripts.map(function(entry) {
+        return browserify({
+                entries: [entry]
+            })
+            .transform(babelify, {
+                presets: ['latest']
+            })
+            .bundle()
+            .pipe(source(entry))
+            .pipe(rename({
+                dirname: './scripts',
+                extname: '.bundle.js'
+            }))
+            .pipe(gulp.dest(config.build))
+            .pipe(browserSync.stream())
+        });
+    // create a merged stream
+    return es.merge.apply(null, tasks);
+});
 
 
 gulp.task('build', function (next) {
