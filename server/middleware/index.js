@@ -1,11 +1,13 @@
 const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 module.exports = function (app) {
+    app.use(cors())
     // serve static files from 'public' directory
     app.use(express.static( path.join(__dirname, '../public')))
-    
+
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use(bodyParser.json())
     // setup View handling

@@ -4,7 +4,7 @@
   "description": "Basic server for importing bank data into mongo, parsing and cleanup, api for client.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./index.js"
   },
   "repository": {
     "type": "git",
@@ -18,9 +18,12 @@
   "homepage": "https://github.com/caltemose/finance-db#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
     "express": "^4.14.0",
     "express-cors": "0.0.3",
+    "line-reader": "^0.4.0",
     "mongoose": "^4.7.0",
+    "nodemon": "^1.11.0",
     "path": "^0.12.7",
     "pug": "^2.0.0-beta6",
     "stylus": "^0.54.5"

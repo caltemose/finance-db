@@ -19,7 +19,11 @@ const config = {
     build: './build',
     views: './src/views/**/*',
     sass: './src/styles/main.sass',
-    scripts: ['./src/scripts/index.js', './src/scripts/import.js']
+    scripts: [
+        './src/scripts/index.js',
+        './src/scripts/import.js',
+        './src/scripts/view-all.js'
+    ]
 }
 
 gulp.task('clean', function (next) {
@@ -64,6 +68,11 @@ gulp.task('scripts', function() {
     return es.merge.apply(null, tasks);
 });
 
+gulp.task('financials', function () {
+    return gulp.src('./src/financial-data/**/*')
+        .pipe(gulp.dest('./build/financial-data'))
+        .pipe(browserSync.stream())
+})
 
 gulp.task('build', function (next) {
     runSequence('clean', ['views', 'styles', 'scripts'], next)
@@ -76,7 +85,8 @@ gulp.task('default', ['build'], function (next) {
         }
     })
 
-    gulp.watch('./src/styles/**/*.sass', ['sass'])
+    gulp.watch('./src/financial-data/**/*', ['financials'])
+    gulp.watch('./src/styles/**/*.sass', ['styles'])
     gulp.watch('./src/views/**/*', ['views'])
     gulp.watch('./src/scripts/**/*', ['scripts'])
 })

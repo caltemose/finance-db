@@ -3,6 +3,7 @@ const express = require('express')
 // const cors = require('express-cors')
 
 const middleware = require('./middleware')
+const models = require('./models');
 const routes = require('./routes')
 
 const config = {
