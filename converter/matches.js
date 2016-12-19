@@ -1,5 +1,13 @@
 module.exports = {
     searches: [
+        { search: "ATM SURCHARGE REBATE", replace: "ATM Fee Rebate" },
+        { search: "USAA CREDIT CARD PAYMENT", replace: "USAA Credit Card Payment" }
+    ]
+}
+
+/*
+module.exports = {
+    searches: [
         { "search": "your dekalb", "replace": "Dekalb Farmers Market"},
         { "search": "@colony square", "replace": "Colony Square", "category": "ATM/Cash Withdrawals"},
         { "search": "reagin optometric", "replace": "Reagin Optometric Group"},
@@ -117,3 +125,4 @@ module.exports = {
         { "search": "USAA.COM PAYMNT", "replace": "USAA Credit Card Payment", "category": "Credit Card Payment" }
         ]
 }
+*/

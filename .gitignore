@@ -3,3 +3,4 @@ node_modules
 express-generator
 build
 financial-data
+npm-debug.log

@@ -21,7 +21,6 @@ const config = {
     sass: './src/styles/main.sass',
     scripts: [
         './src/scripts/index.js',
-        './src/scripts/import.js',
         './src/scripts/view-all.js'
     ]
 }

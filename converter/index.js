@@ -50,6 +50,7 @@ function getObjectFromLine (line) {
     // create the object to return and populate it with data
     let obj = {}
     obj.date = new Date(split[2])
+    obj.descriptionEdited = split[3]
     obj.description = split[4]
     obj.category = split[5]
     let amt = split[6]
@@ -82,8 +83,9 @@ function getCleanDataFromOriginal (original) {
 
 function getPayeeAndCategory (line) {
     // TODO compare to clean data model and convert if matched
-    line.payee = fixDescription(line.original.description)
-    line.category = line.original.category
+    // TODO if no edited description, run description through cleaner
+    line.payee = line.original.descriptionEdited ? line.original.descriptionEdited : line.original.description
+    line.category = line.original.category.toLowerCase()
     return line
 }
 
