@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+// import { fetchPostsIfNeeded } from '../actions/actions'
 
 class App extends Component {
     render() {
@@ -19,4 +20,12 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    categories: state.categories
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

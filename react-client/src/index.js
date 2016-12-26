@@ -1,25 +1,27 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
+
+import Root from './containers/Root'
+import configureStore from './store'
 
 import './finances.css'
 
-import App from './components/App'
-import Home from './components/Home'
-import Categories from './components/categories/Categories'
-import Category from './components/categories/Category'
+// const router = (
+//     <Router history={browserHistory}>
+//         <Route path="/" component={App}>
+//             <IndexRoute component={Home} />
+//             <Route path="categories" component={Categories} />
+//             <Route path="categories/:id" component={Category} />
+//         </Route>
+//     </Router>
+// )
 
-const router = (
-    <Router history={browserHistory}>
-        <Route path="/" component={App}>
-            <IndexRoute component={Home} />
-            <Route path="categories" component={Categories} />
-            <Route path="categories/:id" component={Category} />
-        </Route>
-    </Router>
-)
+const store = configureStore()
+const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render(
-    router,
+    <Root store={store} history={history} />,
     document.getElementById('root')
 )
