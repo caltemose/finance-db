@@ -20,7 +20,8 @@ function writeToDb (categoryObjects) {
 var categoryObjects = []
 categories.forEach(function (category) {
     categoryObjects.push({
-        category: category
+        category: category,
+        inBudget: false
     })
 })
 
