@@ -51,8 +51,19 @@ module.exports = function (app) {
 
     app.get('/api/categories', (req, res) => {
         Category.find().exec((err, categories) => {
+            // TODO categories error should return proper http status code
             if (err) res.jsonp({err:err})
             else res.jsonp(categories)
+        })
+    })
+
+    app.put('/api/categories/:id/in-budget/:value', (req, res) => {
+        const id = req.params.id
+        const inBudget = req.params.value === 'true'
+
+        Category.update({_id: id}, { $set: { inBudget: inBudget }}, (err) => {
+            if (err) return res.status(400).jsonp({err: err})
+            else return res.sendStatus(200)
         })
     })
 
