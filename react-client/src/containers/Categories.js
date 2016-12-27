@@ -1,22 +1,18 @@
-import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import SimpleList from '../components/SimpleList'
-
-class Categories extends Component {
-    render() {
-        const categories = this.props.categories || []
-        return (
-            <div>
-                <h2>All Categories</h2>
-                <SimpleList items={categories} />
-            </div>
-        )
-    }
-}
+import { toggleCategoryInBudget } from '../actions/actions'
+import CategoryList from '../components/CategoryList'
 
 const mapStateToProps = (state) => ({
     categories: state.categories.categories
 })
 
+const mapDispatchToProps = ({
+    onInBudgetChange: toggleCategoryInBudget
+})
 
-export default connect(mapStateToProps)(Categories)
+const Categories = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CategoryList)
+
+export default Categories

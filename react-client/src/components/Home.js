@@ -8,7 +8,7 @@ class Home extends Component {
                 <h2>Home</h2>
                 <p>
                     This page will display the current budget status for the
-                    most-recent month of transactions. It will also have links
+                    most recent month of transactions. It will also have links
                     to various forms and reports for this tool.
                 </p>
                 <ul>

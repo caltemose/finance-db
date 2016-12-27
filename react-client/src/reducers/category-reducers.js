@@ -1,19 +1,31 @@
-import { REQUEST_CATEGORIES, RECEIVE_CATEGORIES } from '../actions/actions'
+import {
+    REQUEST_CATEGORIES,
+    RECEIVE_CATEGORIES,
+    TOGGLE_CATEGORY } from '../actions/actions'
 
-function categories(state = [], action) {
+
+function categories(state = {}, action) {
     switch (action.type) {
         case REQUEST_CATEGORIES:
             return state
+
         case RECEIVE_CATEGORIES:
-            // console.log(action.items)
             return {
                 ...state,
                 categories: action.items,
                 categoriesById: parseCategories(action.items)
             }
 
-        default:
+        case TOGGLE_CATEGORY:
+            console.log(action.type, action.id)
             return state
+
+        default:
+            return {
+                ...state,
+                categories: [],
+                categoriesById: {}
+            }
     }
 }
 

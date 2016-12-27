@@ -1,5 +1,6 @@
 export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES'
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
+export const TOGGLE_CATEGORY = 'TOGGLE_CATEGORY'
 
 export const requestCategories = () => ({
     type: REQUEST_CATEGORIES
@@ -26,3 +27,8 @@ const fetchCategories = () => dispatch => {
 export const fetchCategoriesIfNeeded = () => (dispatch, getState) => {
     return dispatch(fetchCategories())
 }
+
+export const toggleCategoryInBudget = (id) => ({
+    type: TOGGLE_CATEGORY,
+    id
+})
