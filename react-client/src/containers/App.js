@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { fetchCategoriesIfNeeded } from '../actions/actions'
+import Header from '../components/Header'
 
 class App extends Component {
 
@@ -12,13 +12,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <header>
-                    <h1>Finances DB</h1>
-                    <nav>
-                        <Link to="/">Home</Link>
-                        <Link to="/categories">Categories</Link>
-                    </nav>
-                </header>
+                <Header />
 
                 {this.props.children}
             </div>
