@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-// import { fetchPostsIfNeeded } from '../actions/actions'
+import { connect } from 'react-redux'
+import { fetchCategoriesIfNeeded } from '../actions/actions'
 
 class App extends Component {
+
+    componentDidMount () {
+        this.props.fetchCategoriesIfNeeded()
+    }
+
     render() {
         return (
             <div>
@@ -24,8 +30,16 @@ const mapStateToProps = (state) => ({
     categories: state.categories
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    
-})
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         fetchCategoriesIfNeeded: () => {
+//             dispatch(fetchCategoriesIfNeeded())
+//         }
+//     }
+// }
+
+const mapDispatchToProps = {
+    fetchCategoriesIfNeeded
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
