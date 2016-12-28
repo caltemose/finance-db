@@ -1,40 +1,73 @@
 import {
     REQUEST_CATEGORIES,
     RECEIVE_CATEGORIES,
-    TOGGLE_CATEGORY } from '../actions/actions'
+    TOGGLE_CATEGORY,
+    TOGGLE_CATEGORY_COMPLETE } from '../actions/actions'
 
+const createAllIds = (categories) => {
+    return categories.map(category => (category._id))
+}
 
-function categories(state = {}, action) {
+const createById = (categories) => {
+    const byId = {}
+    categories.forEach(category => {
+        byId[category._id] = { ...category }
+    })
+    return byId
+}
+
+const updateById = (state, action) => {
     switch (action.type) {
-        case REQUEST_CATEGORIES:
-            return state
-
-        case RECEIVE_CATEGORIES:
+        case TOGGLE_CATEGORY_COMPLETE:
             return {
                 ...state,
-                categories: action.items,
-                categoriesById: parseCategories(action.items)
+                [action.id]: {
+                    ...state[action.id],
+                    inBudget: action.inBudget
+                }
+            }
+        default:
+            return state
+    }
+}
+
+const categories = (state = {}, action) => {
+    switch (action.type) {
+        case REQUEST_CATEGORIES:
+            console.log(action.type)
+            return {
+                ...state,
+                isFetching: true
+            }
+
+        case RECEIVE_CATEGORIES:
+            console.log(action.type)
+            return {
+                ...state,
+                isFetching: false,
+                byId: createById(action.items),
+                allIds: createAllIds(action.items)
             }
 
         case TOGGLE_CATEGORY:
             console.log(action.type, action.id)
             return state
 
+        case TOGGLE_CATEGORY_COMPLETE:
+            console.log(action.type)
+            return {
+                ...state,
+                byId: updateById(state.byId, action)
+            }
+
         default:
             return {
                 ...state,
-                categories: [],
-                categoriesById: {}
+                isFetching: false,
+                byId: {},
+                allIds: []
             }
     }
-}
-
-function parseCategories (categories) {
-    const byId = {}
-    categories.forEach(category => {
-        byId[category._id] = { ...category }
-    })
-    return byId
 }
 
 export default categories

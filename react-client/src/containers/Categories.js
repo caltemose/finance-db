@@ -3,7 +3,7 @@ import { toggleCategoryInBudget } from '../actions/actions'
 import CategoryList from '../components/CategoryList'
 
 const mapStateToProps = (state) => ({
-    categories: state.categories.categories
+    categories: state.categories
 })
 
 const mapDispatchToProps = ({

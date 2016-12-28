@@ -63,7 +63,7 @@ module.exports = function (app) {
 
         Category.update({_id: id}, { $set: { inBudget: inBudget }}, (err) => {
             if (err) return res.status(400).jsonp({err: err})
-            else return res.sendStatus(200)
+            else return res.jsonp({id: id})
         })
     })
 

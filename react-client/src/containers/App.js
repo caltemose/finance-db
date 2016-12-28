@@ -24,7 +24,7 @@ const mapStateToProps = (state) => ({
     categories: state.categories
 })
 
-// NOTE why would you ever do this? to pass properties through the action?
+// NOTE why do this? to pass properties through the action? see below.
 // const mapDispatchToProps = (dispatch) => {
 //     return {
 //         fetchCategoriesIfNeeded: () => {
