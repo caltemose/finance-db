@@ -31,7 +31,13 @@ const updateById = (state, action) => {
     }
 }
 
-const categories = (state = {}, action) => {
+const defaultState = {
+    isFetching: false,
+    byId: {},
+    allIds: []
+}
+
+const categories = (state = defaultState, action) => {
     switch (action.type) {
         case REQUEST_CATEGORIES:
             console.log(action.type)
@@ -61,12 +67,7 @@ const categories = (state = {}, action) => {
             }
 
         default:
-            return {
-                ...state,
-                isFetching: false,
-                byId: {},
-                allIds: []
-            }
+            return state
     }
 }
 

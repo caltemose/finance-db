@@ -6,6 +6,7 @@ import Header from '../components/Header'
 class App extends Component {
 
     componentDidMount () {
+        console.log('App.componentDidMount()')
         this.props.fetchCategoriesIfNeeded()
     }
 
