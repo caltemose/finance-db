@@ -1,0 +1,34 @@
+.transaction-list
+    list-style: none
+    margin: 1em 0
+    padding: 0
+
+.transaction
+    margin: 0
+    padding: 0.5em 0
+    display: flex
+    background-color: #fff
+    &:nth-child(even)
+        background-color: #eee
+        &.deposit
+            background-color: #f7fff4
+
+    &.deposit
+        background-color: #edffe8
+
+    > span
+        margin-right: 1em
+
+.transaction-date
+    width: 5em
+
+.transaction-amount
+    width: 5em
+    padding-right: 1em
+    text-align: right
+
+.transaction-payee
+    width: 22em
+
+.transaction-category
+    width: 12em
