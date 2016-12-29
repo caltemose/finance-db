@@ -5,12 +5,17 @@ import Header from '../components/Header'
 
 class App extends Component {
 
-    componentDidMount () {
+    /*
+    TODO handle App initialization properly and set redux state init property(ies)
+    so that other components know when they can make API calls, etc.
+    See note in containers/Transactions.js
+     */
+    componentWillMount () {
         console.log('App.componentDidMount()')
         this.props.fetchCategoriesIfNeeded()
     }
 
-    render() {
+    render () {
         return (
             <div>
                 <Header />
@@ -38,4 +43,4 @@ const mapDispatchToProps = {
     fetchCategoriesIfNeeded
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App)

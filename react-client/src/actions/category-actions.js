@@ -8,6 +8,7 @@ export const requestCategories = () => ({
 })
 
 export const receiveCategories = (categories) => {
+    console.log('receiveCategories()')
     return {
         type: RECEIVE_CATEGORIES,
         items: categories

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { browserHistory } from 'react-router'
 
 class RangeForm extends Component {
     static propTypes = {
@@ -22,8 +23,9 @@ class RangeForm extends Component {
     // NOTE ultimately this submission callback may need to come through propTypes
     handleSubmit (event) {
         event.preventDefault()
-        const redirect = `${this.props.urlPrefix}/from/${this.rangeStartYear.value}/${this.rangeStartMonth.value}/to/${this.rangeEndYear.value}/${this.rangeEndMonth.value}/`
+        const redirect = `${this.props.urlPrefix}/from/${this.rangeStartMonth.value}/${this.rangeStartYear.value}/to/${this.rangeEndMonth.value}/${this.rangeEndYear.value}/`
         console.log(redirect)
+        browserHistory.push(redirect)
     }
 
     getMonths (prefix) {
