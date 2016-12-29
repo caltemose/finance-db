@@ -18,6 +18,20 @@ module.exports = function (app) {
         })
     })
 
+    app.get('/api/transactions/from/:startMonth/:startYear/to/:endMonth/:endYear', (req, res) => {
+        const startDate = new Date(req.params.startYear + '/' + req.params.startMonth).toISOString()
+        const endDate = new Date(req.params.endYear + '/' + req.params.endMonth).toISOString()
+        Transaction.find({ date: { $gte: startDate, $lte: endDate }}, (err, transactions) => {
+            if (err) {
+                console.log(err)
+                return res.jsonp({ err: err })
+            }
+            if (transactions) {
+                return res.jsonp(transactions)
+            }
+        })
+    })
+
     app.put('/api/transaction/:id/simple-edit/', (req, res) => {
         let query = Transaction.where({_id: req.params.id})
         let update = {
@@ -27,11 +41,10 @@ module.exports = function (app) {
         query.findOneAndUpdate(update, function (err, doc) {
             if (err) {
                 console.log(err)
-                return res.jsonp({err:err})
+                return res.jsonp({ err: err })
             }
             if (doc) {
-                console.log(doc)
-                return res.jsonp({doc:doc})
+                return res.jsonp({ doc: doc })
             }
         })
     })

@@ -18,6 +18,6 @@ module.exports = function (app) {
    // 500
   app.use(function (err, req, res, next) {
     console.error('error at %s\n', req.url, err.stack);
-    res.send(500, "Oops, we made a boo boo.");
+    res.status(500).send("Oops, we made a boo boo.");
   })
 }
