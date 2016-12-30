@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react'
+import MonthSelector from '../simple/MonthSelector'
+import YearSelector from '../simple/YearSelector'
 
 class BudgetCreateForm extends Component {
     static propTypes = {
@@ -10,22 +12,21 @@ class BudgetCreateForm extends Component {
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.inputs = {}
+        this.startDate = {}
     }
 
     handleSubmit (event) {
         event.preventDefault()
+
         let budgetObject = {
             createdOn: new Date(),
-            // TODO use values from form
-            startDate: new Date(),
+            startDate: new Date(this.startDate.year.value + '/' + this.startDate.month.value),
             categories: {}
         }
 
         Object.keys(this.inputs).forEach(key => {
             budgetObject.categories[key] = this.inputs[key].value
         })
-
-        console.log(budgetObject)
     }
 
     renderCategory (categoryId, i) {
@@ -45,12 +46,11 @@ class BudgetCreateForm extends Component {
             <div>
                 <h2>Create a Budget</h2>
                 <form className="budget-create-form" onSubmit={this.handleSubmit}>
-                    <fieldset>
-                        <label>
-                            Budget Start Month:
-                            [month] [year]
-                        </label>
-                    </fieldset>
+                    <div className="month-year-selector">
+                        Budget Start:
+                        <MonthSelector keyPrefix="range-start-month" attachRefTo={this.startDate} />
+                        <YearSelector keyPrefix="range-start-year" attachRefTo={this.startDate} startYear={2016} endYear={2017} />
+                    </div>
 
                     {this.props.categoriesInBudget.map((categoryId, i) => {
                         return this.renderCategory(categoryId, i)
