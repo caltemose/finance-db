@@ -27,6 +27,8 @@ class BudgetCreateForm extends Component {
         Object.keys(this.inputs).forEach(key => {
             budgetObject.categories[key] = this.inputs[key].value
         })
+
+        console.log(budgetObject)
     }
 
     renderCategory (categoryId, i) {
