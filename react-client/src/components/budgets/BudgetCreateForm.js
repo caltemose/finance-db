@@ -5,7 +5,8 @@ import YearSelector from '../simple/YearSelector'
 class BudgetCreateForm extends Component {
     static propTypes = {
         categories: PropTypes.object.isRequired,
-        categoriesInBudget: PropTypes.array.isRequired
+        categoriesInBudget: PropTypes.array.isRequired,
+        createBudget: PropTypes.func.isRequired
     }
 
     constructor (props) {
@@ -28,7 +29,7 @@ class BudgetCreateForm extends Component {
             budgetObject.categories[key] = this.inputs[key].value
         })
 
-        console.log(budgetObject)
+        this.props.createBudget(budgetObject)
     }
 
     renderCategory (categoryId, i) {

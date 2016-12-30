@@ -5,11 +5,15 @@ export const createBudgetComplete = () => ({
 })
 
 export const createBudget = ( budgetObject ) => (dispatch, getState) => {
-    const options = {
+    const request = new Request('/api/budgets/', {
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        }),
         method: 'POST',
-        body: budgetObject
-    }
-    return fetch(`/api/budgets/`, options)
+        body: JSON.stringify(budgetObject)
+    })
+
+    return fetch(request)
         .then(response => {
             return response.json()
         })

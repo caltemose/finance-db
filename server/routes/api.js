@@ -4,6 +4,7 @@ const linereader = require('line-reader')
 const mongoose = require('mongoose')
 const Transaction = mongoose.model('Transaction')
 const Category = mongoose.model('Category')
+const Budget = mongoose.model('Budget')
 
 module.exports = function (app) {
 
@@ -78,6 +79,24 @@ module.exports = function (app) {
             if (err) return res.status(400).jsonp({err: err})
             else return res.jsonp({id: id})
         })
+    })
+
+    app.post('/api/budgets/', (req, res) => {
+        const startDate = req.body.startDate
+        const createdOn = req.body.createdOn
+        const categories = req.body.categories
+
+        const data = {
+            createdOn: createdOn,
+            startDate: startDate,
+            categories: categories
+        }
+
+        Budget.create(data, (err, budget) => {
+            if (err) return res.status(400).jsonp({err: err})
+            else return res.jsonp(budget)
+        })
+
     })
 
 }
