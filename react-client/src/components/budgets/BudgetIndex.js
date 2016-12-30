@@ -6,13 +6,13 @@ const BudgetIndex = () => (
         <h2>Budget Index</h2>
         <ul>
             <li>
-                <Link to="/budget/create">Create New Budget</Link>
+                <Link to="/budgets/create">Create New Budget</Link>
             </li>
             <li>
-                <Link to="/budget/edit">Edit Current Budget</Link>
+                <Link to="/budgets/edit">Edit Current Budget</Link>
             </li>
             <li>
-                <Link to="/budget/current">View Report - This Month</Link>
+                <Link to="/budgets/current">View Report - This Month</Link>
             </li>
             <li>
                 View Report for Range:

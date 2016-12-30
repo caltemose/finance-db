@@ -71,4 +71,9 @@ const categories = (state = defaultState, action) => {
     }
 }
 
+export const getCategoriesInBudget = (state) => {
+    const { categories: { allIds, byId } } = state
+    return allIds.filter(id => byId[id].inBudget)
+}
+
 export default categories

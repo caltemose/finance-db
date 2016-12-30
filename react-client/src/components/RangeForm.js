@@ -30,7 +30,7 @@ class RangeForm extends Component {
 
     getMonths (prefix) {
         return this.state.months.map((month, i) => (
-            <option value={i} key={prefix + month}>{month}</option>
+            <option value={i+1} key={prefix + month}>{month}</option>
         ))
     }
 

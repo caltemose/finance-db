@@ -18,9 +18,7 @@ export const receiveTransactions = (transactions) => {
 
 export const fetchTransactionsByDate = (startMonth, startYear, endMonth, endYear) => dispatch => {
     dispatch(requestTransactions())
-    const startMonthFixed = Number(startMonth) + 1
-    const endMonthFixed = Number(endMonth) + 1
-    return fetch(`/api/transactions/from/${startMonthFixed}/${startYear}/to/${endMonthFixed}/${endYear}`)
+    return fetch(`/api/transactions/from/${startMonth}/${startYear}/to/${endMonth}/${endYear}`)
         .then(response => {
             return response.json()
         })
