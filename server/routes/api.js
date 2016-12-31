@@ -2,6 +2,8 @@ const fs = require('fs')
 const path = require('path')
 const linereader = require('line-reader')
 const mongoose = require('mongoose')
+const moment = require('moment')
+
 const Transaction = mongoose.model('Transaction')
 const Category = mongoose.model('Category')
 const Budget = mongoose.model('Budget')
@@ -97,6 +99,23 @@ module.exports = function (app) {
             else return res.jsonp(budget)
         })
 
+    })
+
+    app.get('/api/budgets/current', (req, res) => {
+        // sort the budgets by startDate in reverse chronological order
+        Budget.find().sort({startDate:-1}).exec((err, budgets) => {
+            let budget
+            // find the first budget with a startDate that isn't in the future.
+            // since the budgets are sorted reverse chrono, we are guaranteed
+            // that the first budget found in this loop is the current budget
+            for(let i=0; i<budgets.length; i++) {
+                if ( moment(budgets[i].startDate).isSameOrBefore(moment()) ) {
+                    budget = budgets[i]
+                    break
+                }
+            }
+            return res.jsonp(budget)
+        })
     })
 
 }
