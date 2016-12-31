@@ -5,7 +5,8 @@ import BudgetCreateForm from '../components/budgets/BudgetCreateForm'
 
 const mapStateToProps = (state) => ({
     categories: state.categories.byId,
-    categoriesInBudget: getCategoriesInBudget(state)
+    categoriesInBudget: getCategoriesInBudget(state),
+    createComplete: state.budgets.createComplete
 })
 
 const mapDispatchToProps = ({

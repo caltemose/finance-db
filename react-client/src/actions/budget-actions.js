@@ -1,10 +1,37 @@
+export const CREATE_BUDGET_PENDING = 'CREATE_BUDGET_PENDING'
 export const CREATE_BUDGET_COMPLETE = 'CREATE_BUDGET_COMPLETE'
+export const CREATE_BUDGET_ERROR = 'CREATE_BUDGET_ERROR'
+export const REQUEST_CURRENT_BUDGET_PENDING = 'REQUEST_CURRENT_BUDGET_PENDING'
+export const REQUEST_CURRENT_BUDGET_COMPLETE = 'REQUEST_CURRENT_BUDGET_COMPLETE'
+export const REQUEST_CURRENT_BUDGET_ERROR = 'REQUEST_CURRENT_BUDGET_ERROR'
 
-export const createBudgetComplete = () => ({
-    type: CREATE_BUDGET_COMPLETE
+export const createBudgetPending = () => ({
+    type: CREATE_BUDGET_PENDING
+})
+
+export const createBudgetComplete = (id) => ({
+    type: CREATE_BUDGET_COMPLETE,
+    id
+})
+
+export const createBudgetError = (err) => ({
+    type: CREATE_BUDGET_ERROR,
+    err
+})
+
+export const requestCurrentBudgetPending = () => ({
+    type: REQUEST_CURRENT_BUDGET_PENDING
+})
+
+export const requestCurrentBudgetComplete = (budget) => ({
+    type: REQUEST_CURRENT_BUDGET_COMPLETE,
+    budget
 })
 
 export const createBudget = ( budgetObject ) => (dispatch, getState) => {
+    dispatch(createBudgetPending())
+
+    // TODO make a global helper for POST requests
     const request = new Request('/api/budgets/', {
         headers: new Headers({
             'Content-Type': 'application/json'
@@ -19,6 +46,17 @@ export const createBudget = ( budgetObject ) => (dispatch, getState) => {
         })
         .then(result => {
             console.log('budget created', result)
-            return dispatch(createBudgetComplete())
+            return dispatch(createBudgetComplete(result._id))
+        })
+}
+
+export const fetchCurrentBudget = () => dispatch => {
+    dispatch(requestCurrentBudgetPending())
+    return fetch('/api/budgets/current')
+        .then(response => {
+            return response.json()
+        })
+        .then(budget => {
+            return dispatch(requestCurrentBudgetComplete(budget))
         })
 }
