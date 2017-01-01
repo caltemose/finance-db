@@ -4,6 +4,9 @@ export const CREATE_BUDGET_ERROR = 'CREATE_BUDGET_ERROR'
 export const REQUEST_CURRENT_BUDGET_PENDING = 'REQUEST_CURRENT_BUDGET_PENDING'
 export const REQUEST_CURRENT_BUDGET_COMPLETE = 'REQUEST_CURRENT_BUDGET_COMPLETE'
 export const REQUEST_CURRENT_BUDGET_ERROR = 'REQUEST_CURRENT_BUDGET_ERROR'
+export const REQUEST_BUDGET_PENDING = 'REQUEST_BUDGET_PENDING'
+export const REQUEST_BUDGET_COMPLETE = 'REQUEST_BUDGET_COMPLETE'
+export const REQUEST_BUDGET_ERROR = 'REQUEST_BUDGET_ERROR'
 
 export const createBudgetPending = () => ({
     type: CREATE_BUDGET_PENDING
@@ -25,6 +28,15 @@ export const requestCurrentBudgetPending = () => ({
 
 export const requestCurrentBudgetComplete = (budget) => ({
     type: REQUEST_CURRENT_BUDGET_COMPLETE,
+    budget
+})
+
+export const requestBudgetPending = () => ({
+    type: REQUEST_BUDGET_PENDING
+})
+
+export const requestBudgetComplete = (budget) => ({
+    type: REQUEST_BUDGET_COMPLETE,
     budget
 })
 
@@ -58,5 +70,16 @@ export const fetchCurrentBudget = () => dispatch => {
         })
         .then(budget => {
             return dispatch(requestCurrentBudgetComplete(budget))
+        })
+}
+
+export const fetchBudgetInRange = (startMonth, startYear) => dispatch => {
+    dispatch(requestBudgetPending())
+    return fetch(`/api/budgets/from/${startMonth}/${startYear}`)
+        .then(response => {
+            return response.json()
+        })
+        .then(budget => {
+            return dispatch(requestBudgetComplete(budget))
         })
 }

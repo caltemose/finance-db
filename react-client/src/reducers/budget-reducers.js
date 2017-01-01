@@ -1,7 +1,12 @@
 import {
     CREATE_BUDGET_ERROR,
     CREATE_BUDGET_COMPLETE,
-    CREATE_BUDGET_PENDING } from '../actions/actions'
+    CREATE_BUDGET_PENDING,
+    REQUEST_CURRENT_BUDGET_PENDING,
+    REQUEST_CURRENT_BUDGET_COMPLETE,
+    REQUEST_BUDGET_PENDING,
+    REQUEST_BUDGET_COMPLETE
+} from '../actions/actions'
 
 const defaultState = {
     createPending: false,
@@ -10,6 +15,7 @@ const defaultState = {
     loadPending: false,
     loadError: false,
     current: {},
+    selected: {},
     allIds: [],
     byId: {}
 }
@@ -34,6 +40,24 @@ const budgets = (state = defaultState, action) => {
             return {
                 ...state,
                 createError: action.err
+            }
+
+        case REQUEST_CURRENT_BUDGET_PENDING:
+            return state
+
+        case REQUEST_CURRENT_BUDGET_COMPLETE:
+            return {
+                ...state,
+                current: action.budget
+            }
+
+        case REQUEST_BUDGET_PENDING:
+            return state
+
+        case REQUEST_BUDGET_COMPLETE:
+            return {
+                ...state,
+                selected: action.budget
             }
 
         default:

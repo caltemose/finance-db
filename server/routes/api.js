@@ -22,9 +22,13 @@ module.exports = function (app) {
     })
 
     app.get('/api/transactions/from/:startMonth/:startYear/to/:endMonth/:endYear', (req, res) => {
-        const startDate = new Date(req.params.startYear + '/' + req.params.startMonth).toISOString()
-        const endDate = new Date(req.params.endYear + '/' + req.params.endMonth).toISOString()
-        Transaction.find({ date: { $gte: startDate, $lte: endDate }}, (err, transactions) => {
+        // const startDate = new Date(req.params.startYear + '/' + req.params.startMonth).toISOString()
+        // const endDate = new Date(req.params.endYear + '/' + req.params.endMonth).toISOString()
+        const startMoment = moment(req.params.startYear + '-' + req.params.startMonth, 'YYYY-MM')
+        const endMoment = moment(req.params.endYear + '-' + req.params.endMonth, 'YYYY-MM')
+        // get the last day of the given end month by adding a month and subtracting a day
+        endMoment.add(1, 'M').subtract('1', 'd')
+        Transaction.find({ date: { $gte: startMoment.format(), $lte: endMoment.format() }}, (err, transactions) => {
             if (err) {
                 console.log(err)
                 return res.jsonp({ err: err })
@@ -118,4 +122,18 @@ module.exports = function (app) {
         })
     })
 
+    app.get('/api/budgets/from/:startMonth/:startYear', (req, res) => {
+        const startDate = new Date(req.params.startYear + '/' + req.params.startMonth).toISOString()
+        Budget.find({ startDate: { $lte: startDate }}).sort({ startDate: -1 }).limit(1).exec((err, budgets) => {
+            if (err) return res.status(400).jsonp({err: err})
+
+            if (!budgets || budgets.length === 0) {
+                return res.jsonp({err: "No budgets found in the given range"})
+            }
+
+            if (budgets.length) {
+                return res.jsonp(budgets[0])
+            }
+        })
+    })
 }
