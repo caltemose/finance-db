@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchTransactionsByDate } from '../actions/actions'
+import { fetchTransactionsByDate, editTransaction } from '../actions/actions'
 import TransactionsList from '../components/transactions/TransactionsList'
 
 class Transactions extends Component {
+
+    constructor (props) {
+        super(props)
+        this.onTransactionSave = this.onTransactionSave.bind(this)
+    }
 
     /*
     TODO update code to prevent/delay request for transactions until categories are known
@@ -17,12 +22,13 @@ class Transactions extends Component {
         this.props.fetchTransactionsByDate(startMonth, startYear, endMonth, endYear)
     }
 
-    // TransactionsList is going to need:
-    // transactions
-    // actionCreator function to call to update a transaction
+    onTransactionSave (id, payee, category) {
+        this.props.editTransaction(id, payee, category)
+    }
+
     render () {
         return (
-            <TransactionsList transactions={this.props.transactions} />
+            <TransactionsList transactions={this.props.transactions} editTransaction={this.onTransactionSave} />
         )
     }
 }
@@ -32,7 +38,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = ({
-    fetchTransactionsByDate
+    fetchTransactionsByDate,
+    editTransaction
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Transactions)

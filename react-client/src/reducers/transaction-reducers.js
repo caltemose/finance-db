@@ -20,7 +20,8 @@ const createById = (transactions) => {
 
 const updateById = (state, action) => {
     switch (action.type) {
-        // case EDIT_TRANSACTION_PENDING:
+        case EDIT_TRANSACTION_PENDING:
+            return state
 
         case EDIT_TRANSACTION_COMPLETE:
             return {
@@ -32,7 +33,8 @@ const updateById = (state, action) => {
                 }
             }
 
-        // case EDIT_TRANSACTION_ERROR
+        case EDIT_TRANSACTION_ERROR:
+            return state
 
         default:
             return state

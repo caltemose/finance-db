@@ -28,15 +28,19 @@ module.exports = function (app) {
         const endMoment = moment(req.params.endYear + '-' + req.params.endMonth, 'YYYY-MM')
         // get the last day of the given end month by adding a month and subtracting a day
         endMoment.add(1, 'M').subtract('1', 'd')
-        Transaction.find({ date: { $gte: startMoment.format(), $lte: endMoment.format() }}, (err, transactions) => {
-            if (err) {
-                console.log(err)
-                return res.jsonp({ err: err })
-            }
-            if (transactions) {
-                return res.jsonp(transactions)
-            }
-        })
+
+        Transaction
+            .find({ date: { $gte: startMoment.format(), $lte: endMoment.format() }})
+            .sort({ date: -1 })
+            .exec((err, transactions) => {
+                if (err) {
+                    console.log(err)
+                    return res.jsonp({ err: err })
+                }
+                if (transactions) {
+                    return res.jsonp(transactions)
+                }
+            })
     })
 
     app.put('/api/transaction/:id/simple-edit/', (req, res) => {

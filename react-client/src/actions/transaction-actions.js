@@ -48,6 +48,7 @@ export const fetchTransactionsByDate = (startMonth, startYear, endMonth, endYear
 }
 
 export const editTransaction = (id, payee, category) => (dispatch, getState) => {
+    console.log('editTransaction', id, payee, category)
     dispatch(editTransactionPending(id))
 
     const data = { payee, category }
@@ -64,7 +65,7 @@ export const editTransaction = (id, payee, category) => (dispatch, getState) => 
             return response.json()
         })
         .then(result => {
-            console.log('transaction edited', result)
+            // result.doc = original document in db
             return dispatch(editTransactionComplete(id, data))
         })
 }
