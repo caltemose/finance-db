@@ -1,5 +1,7 @@
+$red = #c41728
+
 .over-budget
-    color: #c41728
+    color: $red
 
 .budget-reports
     list-style: none
@@ -25,12 +27,32 @@
         border: 1px solid #888
 
         &.budget-month-category-name
-            width: 13em
+            width: 16em
 
         &.budget-month-category-total
-            width: 5em
+            width: 7em
             text-align: right
 
         &.budget-month-category-limit
-            width: 5em
+            width: 7em
             text-align: right
+
+    li.budget-footer
+        margin: 1em 0 2em
+
+        h4
+            display: inline-block
+            width: 15em
+            margin: 0
+            padding: 0
+
+        span
+            width: 15em
+            text-align: right
+
+            &.total-income, &.total-expenses
+                padding: 0
+                border: none
+
+            &.total-expenses
+                color: $red

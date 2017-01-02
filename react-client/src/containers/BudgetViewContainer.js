@@ -37,15 +37,15 @@ class BudgetViewContainer extends Component {
     }
 
     processData () {
-        // create array of months in the given range
         const { startMonth, startYear, endMonth, endYear } = this.props.params
-        let months = []
 
+        // create array of months in the given range
+        let months = []
         const firstMonth = moment(startYear + '/' + startMonth, 'YYYY-MM')
         months.push(firstMonth)
 
         const lastMonth = moment(endYear + '/' + endMonth, 'YYYY-MM')
-
+        // add months until we've reached the final month
         if (lastMonth.isAfter(firstMonth)) {
             const diff = lastMonth.diff(firstMonth, 'M')
             let month = moment(firstMonth)
@@ -67,6 +67,11 @@ class BudgetViewContainer extends Component {
         let byMonth = {}
         months.forEach(month => {
             const thisMonth = byMonth[month.format('YYYY-MM')] = {}
+            thisMonth.month = month.format('MMMM')
+            thisMonth.year = month.format('YYYY')
+            thisMonth.totalIncome = 0
+            thisMonth.totalExpenses = 0
+            // add the default category objects for each category in the budget
             thisMonth.categories = {}
             budgetCategoryIds.forEach(categoryId => {
                 thisMonth.categories[categoryId] = {
@@ -77,34 +82,45 @@ class BudgetViewContainer extends Component {
             })
         })
 
-        let ignoredTransactions = []
+        let transactionsNotInBudget = []
+        let transactionsUnknownCategories = []
 
         // loop through all transactions in the given range
         this.props.transactions.allIds.forEach(id => {
             const transaction = this.props.transactions.byId[id]
             const categoryObject = categoriesByName[transaction.category]
+            const transactionDate = moment(transaction.date)
+            const transactionDateFormatted = transactionDate.format('YYYY-MM')
 
+            // update the total income or expense amount for this month
+            if (transaction.amount > 0) {
+                byMonth[transactionDateFormatted].totalIncome += transaction.amount
+            } else {
+                byMonth[transactionDateFormatted].totalExpenses += Math.abs(transaction.amount)
+            }
+
+            // if no categoryObject, this transaction has an unrecognized category
             if (categoryObject) {
-                const transactionDate = moment(transaction.date)
                 const transactionCategoryId = categoryObject._id
-
+                // only manipulate the budget report if this transaction
+                // has a category tracked by the budget
                 if (budgetCategoryIds.includes(transactionCategoryId)) {
                     // handle transactions with categories that are in the budget
-                    const transactionDateFormatted = transactionDate.format('YYYY-MM')
                     byMonth[transactionDateFormatted].categories[transactionCategoryId].totalSpent += transaction.amount
 
                 } else {
-                    // ignore transactions with categories that are not in the budget
-                    ignoredTransactions.push(transaction)
+                    // track ignored transactions with categories that are not in the budget
+                    transactionsNotInBudget.push(transaction)
                 }
 
             } else {
-                ignoredTransactions.push(transaction)
+                // track transactions with unrecognized categories
+                transactionsUnknownCategories.push(transaction)
             }
         })
 
         console.log(byMonth)
-        this.setState({ reports: byMonth })
+        this.setState({ reports: byMonth, transactionsNotInBudget, transactionsUnknownCategories })
     }
 
     render () {

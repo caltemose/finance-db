@@ -3,13 +3,14 @@ import React from 'react'
 const prettyAmount = amount => (
     Math.abs( Number(amount).toFixed(0) )
 )
+
 const BudgetView = ({ reports }) => (
     <div>
         <h2>Budget Report Viewer</h2>
         <ul className="budget-reports">
             {Object.keys(reports).map(month => (
                 <li key={month} className="budget-month">
-                    <h3>{month}</h3>
+                    <h3>{reports[month].month} {reports[month].year}</h3>
                     <ul className="budget-month-categories">
                         <li className="budget-header">
                             <span className="budget-month-category-name">Category</span>
@@ -30,6 +31,11 @@ const BudgetView = ({ reports }) => (
                                 </li>
                             )
                         })}
+                        <li className="budget-footer">
+                            <h4>TOTAL INCOME:</h4> <span className="total-income">{prettyAmount(reports[month].totalIncome)}</span>
+                            <br />
+                            <h4>TOTAL EXPENSES:</h4> <span className="total-expenses">{prettyAmount(reports[month].totalExpenses)}</span>
+                        </li>
                     </ul>
                 </li>
             ))}
