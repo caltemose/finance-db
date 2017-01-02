@@ -1,6 +1,10 @@
 import {
     REQUEST_TRANSACTIONS,
-    RECEIVE_TRANSACTIONS } from '../actions/actions'
+    RECEIVE_TRANSACTIONS,
+    EDIT_TRANSACTION_PENDING,
+    EDIT_TRANSACTION_ERROR,
+    EDIT_TRANSACTION_COMPLETE
+} from '../actions/actions'
 
 const createAllIds = (transactions) => {
     return transactions.map(transaction => (transaction._id))
@@ -14,18 +18,34 @@ const createById = (transactions) => {
     return byId
 }
 
-// const updateById = (state, action) => {
-//     switch (action.type) {
-//         default:
-//             return state
-//     }
-// }
+const updateById = (state, action) => {
+    switch (action.type) {
+        // case EDIT_TRANSACTION_PENDING:
+
+        case EDIT_TRANSACTION_COMPLETE:
+            return {
+                ...state,
+                [action.id]: {
+                    ...state[action.id],
+                    payee: action.data.payee,
+                    category: action.data.category
+                }
+            }
+
+        // case EDIT_TRANSACTION_ERROR
+
+        default:
+            return state
+    }
+}
 
 const defaultState = {
     isFetching: false,
     byId: {},
     allIds: []
 }
+
+
 
 const transactions = (state = defaultState, action) => {
     switch (action.type) {
@@ -43,6 +63,13 @@ const transactions = (state = defaultState, action) => {
                 isFetching: false,
                 byId: createById(action.items),
                 allIds: createAllIds(action.items)
+            }
+
+        case EDIT_TRANSACTION_COMPLETE:
+            console.log(action.type)
+            return {
+                ...state,
+                byId: updateById(state.byId, action)
             }
 
         default:

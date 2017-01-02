@@ -1,5 +1,8 @@
 export const REQUEST_TRANSACTIONS = 'REQUEST_TRANSACTIONS'
 export const RECEIVE_TRANSACTIONS = 'RECEIVE_TRANSACTIONS'
+export const EDIT_TRANSACTION_PENDING = 'EDIT_TRANSACTION_PENDING'
+export const EDIT_TRANSACTION_COMPLETE = 'EDIT_TRANSACTION_COMPLETE'
+export const EDIT_TRANSACTION_ERROR = 'EDIT_TRANSACTION_ERROR'
 
 export const requestTransactions = () => {
     console.log('requestTransactions()')
@@ -16,6 +19,23 @@ export const receiveTransactions = (transactions) => {
     }
 }
 
+export const editTransactionPending = (id) => ({
+    type: EDIT_TRANSACTION_PENDING,
+    id
+})
+
+export const editTransactionComplete = (id, data) => ({
+    type: EDIT_TRANSACTION_COMPLETE,
+    id,
+    data
+})
+
+export const editTransactionError = (err, id) => ({
+    type: EDIT_TRANSACTION_ERROR,
+    err,
+    id
+})
+
 export const fetchTransactionsByDate = (startMonth, startYear, endMonth, endYear) => dispatch => {
     dispatch(requestTransactions())
     return fetch(`/api/transactions/from/${startMonth}/${startYear}/to/${endMonth}/${endYear}`)
@@ -24,5 +44,27 @@ export const fetchTransactionsByDate = (startMonth, startYear, endMonth, endYear
         })
         .then(transactions => {
             return dispatch(receiveTransactions(transactions))
+        })
+}
+
+export const editTransaction = (id, payee, category) => (dispatch, getState) => {
+    dispatch(editTransactionPending(id))
+
+    const data = { payee, category }
+    const request = new Request(`/api/transaction/${id}/simple-edit/`, {
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        }),
+        method: 'PUT',
+        body: JSON.stringify(data)
+    })
+
+    return fetch(request)
+        .then(response => {
+            return response.json()
+        })
+        .then(result => {
+            console.log('transaction edited', result)
+            return dispatch(editTransactionComplete(id, data))
         })
 }
