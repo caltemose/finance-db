@@ -6,11 +6,16 @@ const prettyAmount = amount => (
 const BudgetView = ({ reports }) => (
     <div>
         <h2>Budget Report Viewer</h2>
-        <ul>
+        <ul className="budget-reports">
             {Object.keys(reports).map(month => (
-                <li key={month}>
-                    {month}
-                    <ul>
+                <li key={month} className="budget-month">
+                    <h3>{month}</h3>
+                    <ul className="budget-month-categories">
+                        <li className="budget-header">
+                            <span className="budget-month-category-name">Category</span>
+                            <span className="budget-month-category-total">Total</span>
+                            <span className="budget-month-category-limit">Limit</span>
+                        </li>
                         {Object.keys(reports[month].categories).map(categoryId => {
                             const category = reports[month].categories[categoryId]
                             let classes = ''
@@ -19,7 +24,9 @@ const BudgetView = ({ reports }) => (
                             }
                             return (
                                 <li key={categoryId} className={classes}>
-                                    {category.categoryName} = {prettyAmount(category.totalSpent)} ({category.budgetLimit})
+                                    <span className="budget-month-category-name">{category.categoryName}</span>
+                                    <span className="budget-month-category-total">{prettyAmount(category.totalSpent)}</span>
+                                    <span className="budget-month-category-limit">{category.budgetLimit}</span>
                                 </li>
                             )
                         })}
