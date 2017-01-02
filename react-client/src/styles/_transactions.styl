@@ -5,9 +5,10 @@
 
 .transaction
     margin: 0
-    padding: 0.5em 0
+    padding: 0.75em 0.5em
     display: flex
     background-color: #fff
+
     &:nth-child(even)
         background-color: #eee
         &.deposit
@@ -16,11 +17,12 @@
     &.deposit
         background-color: #edffe8
 
+.editable-transaction-form
     > span
-        margin-right: 1em
+        display: inline-block
 
 .transaction-date
-    width: 5em
+    width: 7em
 
 .transaction-amount
     width: 5em
@@ -28,7 +30,20 @@
     text-align: right
 
 .transaction-payee
-    width: 22em
+    width: 24em
 
 .transaction-category
-    width: 12em
+    width: 14em
+
+.transaction-account
+    width: 9em
+
+.transaction
+    input
+        margin-right: 0.25em
+        padding: 0.25em
+        font-size: 1em
+
+    button
+        display: inline-block
+        margin-left: 1em

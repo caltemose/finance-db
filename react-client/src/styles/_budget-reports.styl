@@ -1,12 +1,21 @@
 $red = #c41728
+$green = #467f23
 
 .over-budget
     color: $red
+
+.under-budget
+    color: $green
 
 .budget-reports
     list-style: none
     margin: 0 0 2em
     padding: 0
+
+.budget-month
+    display: inline-block
+    margin-right: 2em
+    width: 32em
 
 .budget-month-categories
     list-style: none
@@ -50,7 +59,7 @@ $red = #c41728
             width: 15em
             text-align: right
 
-            &.total-income, &.total-expenses
+            &.total-income, &.total-expenses, &.total-remainder
                 padding: 0
                 border: none
 

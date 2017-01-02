@@ -119,7 +119,6 @@ class BudgetViewContainer extends Component {
             }
         })
 
-        console.log(byMonth)
         this.setState({ reports: byMonth, transactionsNotInBudget, transactionsUnknownCategories })
     }
 
