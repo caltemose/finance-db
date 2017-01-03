@@ -26,7 +26,7 @@ const BudgetView = ({ reports }) => (
 
                             let classes = ''
                             const diff = category.budgetLimit - Math.abs(Math.round(category.totalSpent))
-                            
+
                             if (diff < 0) {
                                 classes = 'over-budget'
                             } else if (diff > 0) {
@@ -47,6 +47,18 @@ const BudgetView = ({ reports }) => (
                             <h4>TOTAL EXPENSES:</h4> <span className="total-expenses">{prettyAmount(reports[month].totalExpenses)}</span>
                             <br />
                             <h4>REMAINDER:</h4> <span className="total-remainder">{calculateRemainder(reports[month].totalIncome, reports[month].totalExpenses)}</span>
+                            <br />
+                            <h4>TOTAL BUDGET LIMIT:</h4> <span>{prettyAmount(reports[month].totalBudgetLimit)}</span>
+                            <br />
+                            <h4>TOTAL BUDGET SPENT:</h4> <span>{prettyAmount(reports[month].totalBudgetSpent)}</span>
+                            <br />
+                            <h4>TOTAL SPENT (NON-BUDGET):</h4> <span>{calculateRemainder(reports[month].totalBudgetLimit, reports[month].totalBudgetSpent)}</span>
+                            <br />
+                            <h4>UNBUDGETED:</h4>
+                            <span>{prettyAmount(reports[month].transactionsNotInBudget.items.length)}&nbsp; / &nbsp;{prettyAmount(reports[month].transactionsNotInBudget.totalSpent)}</span>
+                            <br />
+                            <h4>UNKNOWN CATEGORIES:</h4>
+                            <span>{prettyAmount(reports[month].transactionsUnknownCategories.items.length)}&nbsp; / &nbsp;{prettyAmount(reports[month].transactionsUnknownCategories.totalSpent)}</span>
                         </li>
                     </ul>
                 </li>

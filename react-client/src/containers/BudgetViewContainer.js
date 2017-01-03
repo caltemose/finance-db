@@ -69,8 +69,14 @@ class BudgetViewContainer extends Component {
             const thisMonth = byMonth[month.format('YYYY-MM')] = {}
             thisMonth.month = month.format('MMMM')
             thisMonth.year = month.format('YYYY')
+            // all income noted by >0 transactions
             thisMonth.totalIncome = 0
+            // all expenses including non-budget and non-categorized
+            // noted by <0 transactions
             thisMonth.totalExpenses = 0
+            thisMonth.totalBudgetLimit = 0
+            thisMonth.totalBudgetSpent = 0
+
             // add the default category objects for each category in the budget
             thisMonth.categories = {}
             budgetCategoryIds.forEach(categoryId => {
@@ -79,11 +85,11 @@ class BudgetViewContainer extends Component {
                     budgetLimit: this.props.selectedBudget.categories[categoryId],
                     totalSpent: 0
                 }
+                thisMonth.totalBudgetLimit += Number(this.props.selectedBudget.categories[categoryId])
+                thisMonth.transactionsNotInBudget = { items: [], totalSpent: 0 }
+                thisMonth.transactionsUnknownCategories = { items: [], totalSpent: 0 }
             })
         })
-
-        let transactionsNotInBudget = []
-        let transactionsUnknownCategories = []
 
         // loop through all transactions in the given range
         this.props.transactions.allIds.forEach(id => {
@@ -107,19 +113,21 @@ class BudgetViewContainer extends Component {
                 if (budgetCategoryIds.includes(transactionCategoryId)) {
                     // handle transactions with categories that are in the budget
                     byMonth[transactionDateFormatted].categories[transactionCategoryId].totalSpent += transaction.amount
-
+                    byMonth[transactionDateFormatted].totalBudgetSpent += transaction.amount
                 } else {
                     // track ignored transactions with categories that are not in the budget
-                    transactionsNotInBudget.push(transaction)
+                    byMonth[transactionDateFormatted].transactionsNotInBudget.items.push(transaction)
+                    byMonth[transactionDateFormatted].transactionsNotInBudget.totalSpent += transaction.amount
                 }
 
             } else {
                 // track transactions with unrecognized categories
-                transactionsUnknownCategories.push(transaction)
+                byMonth[transactionDateFormatted].transactionsUnknownCategories.items.push(transaction)
+                byMonth[transactionDateFormatted].transactionsUnknownCategories.totalSpent += transaction.amount
             }
         })
 
-        this.setState({ reports: byMonth, transactionsNotInBudget, transactionsUnknownCategories })
+        this.setState({ reports: byMonth })
     }
 
     render () {
