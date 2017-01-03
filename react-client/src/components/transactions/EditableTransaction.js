@@ -31,7 +31,8 @@ class EditableTransaction extends Component {
 
     render () {
         const transaction = this.props.transaction
-        const classes = transaction.amount > 0 ? 'transaction deposit' : 'transaction'
+        let classes = transaction.amount > 0 ? 'transaction deposit' : 'transaction'
+        classes += transaction.inBudget ? ' in-budget' : ''
 
         return (
             <li key={transaction._id} className={classes}>

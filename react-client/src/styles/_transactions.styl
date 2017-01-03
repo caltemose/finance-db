@@ -17,6 +17,15 @@
     &.deposit
         background-color: #edffe8
 
+    &.in-budget
+        &::after
+            content: 'in-budget'
+            display: inline-block
+            margin-left: 1em
+            font-size: 0.8em
+            text-transform: uppercase
+
+
 .editable-transaction-form
     > span
         display: inline-block

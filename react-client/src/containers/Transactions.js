@@ -28,13 +28,14 @@ class Transactions extends Component {
 
     render () {
         return (
-            <TransactionsList transactions={this.props.transactions} editTransaction={this.onTransactionSave} />
+            <TransactionsList categories={this.props.categories} transactions={this.props.transactions} editTransaction={this.onTransactionSave} />
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-    transactions: state.transactions
+    transactions: state.transactions,
+    categories: state.categories
 })
 
 const mapDispatchToProps = ({
