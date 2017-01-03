@@ -91,6 +91,12 @@ class BudgetViewContainer extends Component {
             })
         })
 
+        const excludedCategories = [
+            'credit card payments',
+            'work expense',
+            'work reimbursement'
+        ]
+
         // loop through all transactions in the given range
         this.props.transactions.allIds.forEach(id => {
             const transaction = this.props.transactions.byId[id]
@@ -99,10 +105,12 @@ class BudgetViewContainer extends Component {
             const transactionDateFormatted = transactionDate.format('YYYY-MM')
 
             // update the total income or expense amount for this month
-            if (transaction.amount > 0) {
-                byMonth[transactionDateFormatted].totalIncome += transaction.amount
-            } else {
-                byMonth[transactionDateFormatted].totalExpenses += Math.abs(transaction.amount)
+            if (!excludedCategories.includes(transaction.category)) {
+                if (transaction.amount > 0) {
+                    byMonth[transactionDateFormatted].totalIncome += transaction.amount
+                } else {
+                    byMonth[transactionDateFormatted].totalExpenses += Math.abs(transaction.amount)
+                }
             }
 
             // if no categoryObject, this transaction has an unrecognized category
