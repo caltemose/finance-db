@@ -5,6 +5,8 @@ import moment from 'moment'
 import { fetchBudgetInRange, fetchTransactionsByDate } from '../actions/actions'
 import BudgetView from '../components/budgets/BudgetView'
 
+const FORMAT_YEAR_MONTH = 'YYYY-MM'
+
 class BudgetViewContainer extends Component {
     constructor (props) {
         super(props)
@@ -41,10 +43,10 @@ class BudgetViewContainer extends Component {
 
         // create array of months in the given range
         let months = []
-        const firstMonth = moment(startYear + '/' + startMonth, 'YYYY-MM')
+        const firstMonth = moment(startYear + '/' + startMonth, FORMAT_YEAR_MONTH)
         months.push(firstMonth)
 
-        const lastMonth = moment(endYear + '/' + endMonth, 'YYYY-MM')
+        const lastMonth = moment(endYear + '/' + endMonth, FORMAT_YEAR_MONTH)
         // add months until we've reached the final month
         if (lastMonth.isAfter(firstMonth)) {
             const diff = lastMonth.diff(firstMonth, 'M')
@@ -66,7 +68,7 @@ class BudgetViewContainer extends Component {
         // create an object with keys for each month in the report
         let byMonth = {}
         months.forEach(month => {
-            const thisMonth = byMonth[month.format('YYYY-MM')] = {}
+            const thisMonth = byMonth[month.format(FORMAT_YEAR_MONTH)] = {}
             thisMonth.month = month.format('MMMM')
             thisMonth.year = month.format('YYYY')
             // all income noted by >0 transactions
@@ -102,7 +104,7 @@ class BudgetViewContainer extends Component {
             const transaction = this.props.transactions.byId[id]
             const categoryObject = categoriesByName[transaction.category]
             const transactionDate = moment(transaction.date)
-            const transactionDateFormatted = transactionDate.format('YYYY-MM')
+            const transactionDateFormatted = transactionDate.format(FORMAT_YEAR_MONTH)
 
             // update the total income or expense amount for this month
             if (!excludedCategories.includes(transaction.category)) {
@@ -123,9 +125,12 @@ class BudgetViewContainer extends Component {
                     byMonth[transactionDateFormatted].categories[transactionCategoryId].totalSpent += transaction.amount
                     byMonth[transactionDateFormatted].totalBudgetSpent += transaction.amount
                 } else {
-                    // track ignored transactions with categories that are not in the budget
-                    byMonth[transactionDateFormatted].transactionsNotInBudget.items.push(transaction)
-                    byMonth[transactionDateFormatted].transactionsNotInBudget.totalSpent += transaction.amount
+                    //
+                    if (!excludedCategories.includes(transaction.category)) {
+                        // track ignored transactions with categories that are not in the budget
+                        byMonth[transactionDateFormatted].transactionsNotInBudget.items.push(transaction)
+                        byMonth[transactionDateFormatted].transactionsNotInBudget.totalSpent += transaction.amount
+                    }
                 }
 
             } else {
@@ -159,31 +164,3 @@ const mapDispatchToProps = ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BudgetViewContainer)
-
-/*
-
-Plan:
-
-/api/budgets/from/:startMonth/:startYear
-API: Get Budget by Start Date
-
-/api/transactions/from/:startMonth/:startYear/to/:endMonth/:endYear
-API: Get all transactions within given range
-
-Create budget report data per month in range:
-
-Month:
-    date: Date,
-    categories:
-        id: String
-        name: String
-        budgetLimit: Number
-        totalSpent: Number
-        difference: Number
-    totalSpent:
-    totalLimit:
-    totalIncome:
-
-Display per-month report.
-
-*/

@@ -1,13 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import moment from 'moment'
-
-const prettyDate = dateStamp => (
-    moment(dateStamp).format('YYYY/MM/DD')
-)
-
-const prettyAmount = amount => (
-    Number(amount).toFixed(2)
-)
+import { prettyAmount, prettyDate } from '../../helpers'
 
 class EditableTransaction extends Component {
     static propTypes = {
@@ -25,7 +17,6 @@ class EditableTransaction extends Component {
         const id = this.props.transaction._id
         const payee = this.payeeInput.value
         const category = this.categoryInput.value
-        console.log(id, payee, category)
         this.props.editTransaction(id, payee, category)
     }
 
