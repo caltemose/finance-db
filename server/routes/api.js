@@ -91,6 +91,13 @@ module.exports = function (app) {
         })
     })
 
+    app.get('/api/budgets', (req, res) => {
+        Budget.find().sort({startDate: -1}).exec((err, budgets) => {
+            if (err) res.status(503).jsonp({err: err})
+            else res.jsonp(budgets)
+        })
+    })
+
     app.post('/api/budgets/', (req, res) => {
         const startDate = req.body.startDate
         const createdOn = req.body.createdOn
