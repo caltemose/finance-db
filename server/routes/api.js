@@ -74,10 +74,21 @@ module.exports = function (app) {
     })
 
     app.get('/api/categories', (req, res) => {
-        Category.find().exec((err, categories) => {
-            // TODO categories error should return proper http status code
-            if (err) res.jsonp({err:err})
+        Category.find().sort({category: 1}).exec((err, categories) => {
+            if (err) res.status(503).jsonp({err:err})
             else res.jsonp(categories)
+        })
+    })
+
+    app.post('/api/categories', (req, res) => {
+        const data = {
+            category: req.body.category,
+            inBudget: req.body.inBudget
+        }
+
+        Category.create(data, (err, category) => {
+            if (err) return res.status(400).jsonp({ err })
+            else return res.jsonp(category)
         })
     })
 

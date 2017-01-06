@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { toggleCategoryInBudget } from '../actions/actions'
+import { toggleCategoryInBudget, createCategory } from '../actions/actions'
 import CategoryList from '../components/CategoryList'
 
 const mapStateToProps = (state) => ({
@@ -7,7 +7,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = ({
-    onInBudgetChange: toggleCategoryInBudget
+    onInBudgetChange: toggleCategoryInBudget,
+    createCategory
 })
 
 const Categories = connect(

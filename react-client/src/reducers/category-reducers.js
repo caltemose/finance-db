@@ -2,7 +2,8 @@ import {
     REQUEST_CATEGORIES,
     RECEIVE_CATEGORIES,
     TOGGLE_CATEGORY,
-    TOGGLE_CATEGORY_COMPLETE } from '../actions/actions'
+    TOGGLE_CATEGORY_COMPLETE,
+    CREATE_CATEGORY_COMPLETE } from '../actions/actions'
 
 const createAllIds = (categories) => {
     return categories.map(category => (category._id))
@@ -14,6 +15,20 @@ const createById = (categories) => {
         byId[category._id] = { ...category }
     })
     return byId
+}
+
+const appendToAllIds = (state, id) => {
+    return [
+        ...state,
+        id
+    ]
+}
+
+const appendToById = (state, id, category) => {
+    return {
+        ...state,
+        [id]: category
+    }
 }
 
 const updateById = (state, action) => {
@@ -64,6 +79,14 @@ const categories = (state = defaultState, action) => {
             return {
                 ...state,
                 byId: updateById(state.byId, action)
+            }
+
+        case CREATE_CATEGORY_COMPLETE:
+            console.log(action.type)
+            return {
+                ...state,
+                allIds: appendToAllIds(state.allIds, action.id),
+                byId: appendToById(state.byId, action.id, action.category)
             }
 
         default:

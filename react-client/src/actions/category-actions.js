@@ -2,6 +2,7 @@ export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES'
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
 export const TOGGLE_CATEGORY = 'TOGGLE_CATEGORY'
 export const TOGGLE_CATEGORY_COMPLETE = 'TOGGLE_CATEGORY_COMPLETE'
+export const CREATE_CATEGORY_COMPLETE = 'CREATE_CATEGORY_COMPLETE'
 
 export const requestCategories = () => ({
     type: REQUEST_CATEGORIES
@@ -44,6 +45,15 @@ export const toggleCategoryComplete = (id, newValue) => {
     }
 }
 
+export const createCategoryComplete = (id, category) => {
+    console.log('createCategoryComplete', id)
+    return {
+        type: CREATE_CATEGORY_COMPLETE,
+        id,
+        category
+    }
+}
+
 export const toggleCategoryInBudget = (id, inBudget) => (dispatch, getState) => {
     dispatch(toggleCategory(id))
     const options = {
@@ -57,5 +67,33 @@ export const toggleCategoryInBudget = (id, inBudget) => (dispatch, getState) => 
         .then(result => {
             console.log('id', result.id)
             return dispatch(toggleCategoryComplete(result.id, newValue))
+        })
+}
+
+export const createCategory = (categoryName, inBudget) => (dispatch) => {
+    const category = {
+        category: categoryName,
+        inBudget: inBudget
+    }
+
+    const request = new Request('/api/categories/', {
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        }),
+        method: 'POST',
+        body: JSON.stringify(category)
+    })
+
+    return fetch(request)
+        .then(response => {
+            return response.json()
+        })
+        .then(result => {
+            console.log('category created', result)
+            const newCategory = {
+                ...category,
+                _id: result._id
+            }
+            return dispatch(createCategoryComplete(result._id, newCategory))
         })
 }

@@ -1,40 +1,67 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes, Component } from 'react'
 
-const setChecked = (value) => {
-    return value ? 'checked' : ''
-}
+class CategoryList extends Component {
+    static propTypes = {
+        categories: PropTypes.shape({
+            allIds: PropTypes.array.isRequired,
+            byId: PropTypes.object.isRequired,
+            isFetching: PropTypes.bool.isRequired
+        }).isRequired,
+        onInBudgetChange: PropTypes.func.isRequired,
+        createCategory: PropTypes.func.isRequired
+    }
 
-const CategoryList = ({ categories, onInBudgetChange }) => (
-    <div>
-        <h2>All Categories</h2>
-        {categories.isFetching ?
-            <p>Loading...</p>
-        :
-            <ul className="category-list">
-                {categories.allIds.map(categoryId => {
-                    const category = categories.byId[categoryId]
-                    return (
-                        <li key={category._id}>
-                            <h3>{category.category}</h3>
-                            <label onChange={() => onInBudgetChange(category._id, category.inBudget)}>
-                                <input type="checkbox" name="in-budget" defaultChecked={setChecked(category.inBudget)} />
-                                in Budget?
-                            </label>
-                        </li>
-                    )
-                })}
-            </ul>
-        }
-    </div>
-)
+    constructor (props) {
+        super(props)
+        this.submitNewCategory = this.submitNewCategory.bind(this)
+    }
 
-CategoryList.propTypes = {
-    categories: PropTypes.shape({
-        allIds: PropTypes.array.isRequired,
-        byId: PropTypes.object.isRequired,
-        isFetching: PropTypes.bool.isRequired
-    }).isRequired,
-    onInBudgetChange: PropTypes.func.isRequired
+    setChecked (value) {
+        return value ? 'checked' : ''
+    }
+
+    submitNewCategory (event) {
+        event.preventDefault()
+        this.props.createCategory(this.newCategoryName.value, this.newCategoryInBudget.checked)
+        this.newCategoryName.value = ''
+        this.newCategoryInBudget.checked = false
+    }
+
+    render () {
+        const { categories, onInBudgetChange } = this.props
+        return (
+            <div>
+                <h2>All Categories</h2>
+                {categories.isFetching ?
+                    <p>Loading...</p>
+                :
+                    <ul className="category-list">
+                        {categories.allIds.map(categoryId => {
+                            const category = categories.byId[categoryId]
+                            return (
+                                <li key={category._id}>
+                                    <h3>{category.category}</h3>
+                                    <label onChange={() => onInBudgetChange(category._id, category.inBudget)}>
+                                        <input type="checkbox" name="in-budget" defaultChecked={this.setChecked(category.inBudget)} />
+                                        in Budget?
+                                    </label>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                }
+                <h2>Add Category</h2>
+                <form className="add-category-form" onSubmit={this.submitNewCategory}>
+                    <input type="text" name="category" ref={(input) => this.newCategoryName = input} />
+                    <label>
+                        <input type="checkbox" name="in-budget" ref={(input) => this.newCategoryInBudget = input} />
+                        in Budget?
+                    </label>
+                    <button type="submit">Add Category</button>
+                </form>
+            </div>
+        )
+    }
 }
 
 export default CategoryList
