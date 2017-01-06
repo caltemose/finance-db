@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-const YearSelector = ({ keyPrefix, attachRefTo, startYear, endYear }) => {
+const YearSelector = ({ keyPrefix, attachRefTo, startYear, endYear, defaultValue }) => {
     if (!startYear) {
         startYear = new Date().getFullYear()
     }
@@ -19,7 +19,7 @@ const YearSelector = ({ keyPrefix, attachRefTo, startYear, endYear }) => {
     }
 
     return (
-        <select ref={(input) => attachRefTo.year = input}>
+        <select ref={(input) => attachRefTo.year = input} defaultValue={Number(defaultValue)}>
             {years.map(year => (
                 <option value={year} key={`${keyPrefix}-${year}`}>{year}</option>
             ))}
@@ -32,7 +32,8 @@ YearSelector.propTypes = {
     keyPrefix: PropTypes.string.isRequired,
     attachRefTo: PropTypes.object.isRequired,
     startYear: PropTypes.number,
-    endYear: PropTypes.number
+    endYear: PropTypes.number,
+    defaultValue: PropTypes.string
 }
 
 export default YearSelector

@@ -7,13 +7,17 @@ import {
     REQUEST_BUDGET_PENDING,
     REQUEST_BUDGET_COMPLETE,
     REQUEST_BUDGETS_PENDING,
-    REQUEST_BUDGETS_COMPLETE
+    REQUEST_BUDGETS_COMPLETE,
+    EDIT_TRANSACTION_PENDING,
+    EDIT_TRANSACTION_ERROR,
+    EDIT_TRANSACTION_COMPLETE
 } from '../actions/actions'
 
 const defaultState = {
     createPending: false,
     createError: false,
     createComplete: false,
+    editComplete: false,
     loadPending: false,
     loadError: false,
     current: {},
@@ -32,6 +36,17 @@ const createById = (items) => {
         byId[item._id] = { ...item }
     })
     return byId
+}
+
+const updateById = (state, action) => {
+    return {
+        ...state,
+        [action.id]: {
+            ...state[action.id],
+            startDate: action.data.startDate,
+            categories: action.data.categories
+        }
+    }
 }
 
 const budgets = (state = defaultState, action) => {
@@ -54,6 +69,22 @@ const budgets = (state = defaultState, action) => {
             return {
                 ...state,
                 createError: action.err
+            }
+
+        case EDIT_TRANSACTION_PENDING:
+            return state
+
+        case EDIT_TRANSACTION_ERROR:
+            return {
+                ...state,
+                editError: action.err
+            }
+
+        case EDIT_TRANSACTION_COMPLETE:
+            return {
+                ...state,
+                editComplete: true,
+                byId: updateById(state.byId, action)
             }
 
         case REQUEST_CURRENT_BUDGET_PENDING:
@@ -87,6 +118,10 @@ const budgets = (state = defaultState, action) => {
         default:
             return state
     }
+}
+
+export const getBudgetById = (state, id) => {
+    return state.budgets.byId[id] || {}
 }
 
 export default budgets

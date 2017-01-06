@@ -98,7 +98,7 @@ module.exports = function (app) {
         })
     })
 
-    app.post('/api/budgets/', (req, res) => {
+    app.post('/api/budgets', (req, res) => {
         const startDate = req.body.startDate
         const createdOn = req.body.createdOn
         const categories = req.body.categories
@@ -145,6 +145,17 @@ module.exports = function (app) {
             if (budgets.length) {
                 return res.jsonp(budgets[0])
             }
+        })
+    })
+
+    app.put('/api/budgets/:id', (req, res) => {
+        const id = req.params.id
+        const startDate = req.body.startDate
+        const categories = req.body.categories
+
+        Budget.update({_id: id}, { $set: { startDate: startDate, categories: categories }}, (err) => {
+            if (err) return res.status(400).jsonp({err: err})
+            else return res.jsonp({id: id})
         })
     })
 }

@@ -7,7 +7,6 @@ import YearSelector from '../simple/YearSelector'
 
 class BudgetIndex extends Component {
     static propTypes = {
-        fetchBudgets: PropTypes.func.isRequired,
         budgets: PropTypes.object.isRequired
     }
 
@@ -15,10 +14,6 @@ class BudgetIndex extends Component {
         super(props)
         this.rangeStartDate = {}
         this.rangeEndDate = {}
-    }
-
-    componentDidMount () {
-        this.props.fetchBudgets()
     }
 
     handleSubmit (event) {

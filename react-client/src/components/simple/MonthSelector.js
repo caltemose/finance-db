@@ -5,8 +5,8 @@ export const MONTHS = [
     "July", "August", "September", "October", "November", "December"
 ]
 
-const MonthSelector = ({ keyPrefix, attachRefTo }) => (
-    <select ref={(input) => attachRefTo.month = input}>
+const MonthSelector = ({ keyPrefix, attachRefTo, defaultValue }) => (
+    <select ref={(input) => attachRefTo.month = input} defaultValue={Number(defaultValue)+1}>
         {MONTHS.map((month, i) => (
             <option value={i+1} key={`${keyPrefix}-${i}`}>{month}</option>
         ))}
@@ -15,7 +15,8 @@ const MonthSelector = ({ keyPrefix, attachRefTo }) => (
 
 MonthSelector.propTypes = {
     keyPrefix: PropTypes.string.isRequired,
-    attachRefTo: PropTypes.object.isRequired
+    attachRefTo: PropTypes.object.isRequired,
+    defaultValue: PropTypes.string
 }
 
 export default MonthSelector
