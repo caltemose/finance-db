@@ -68,6 +68,32 @@ const BudgetView = ({ reports }) => (
                             <h4>UNKNOWN CATEGORIES:</h4>
                             <span>{prettyAmount(reports[month].transactionsUnknownCategories.items.length)}&nbsp; / &nbsp;{prettyAmount(reports[month].transactionsUnknownCategories.totalSpent)}</span>
                         </li>
+
+                        <li className="transactions-not-in-budget">
+                            <h3>Not In Budget</h3>
+                            <ul>
+                                {reports[month].transactionsNotInBudget.items.map(transaction => (
+                                    <li key={transaction._id}>
+                                        {transaction.amount} --&nbsp;
+                                        {transaction.payee} --&nbsp;
+                                        {transaction.category}
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+
+                        <li className="transactions-unknown-categories">
+                            <h3>Unknown Categories</h3>
+                            <ul>
+                                {reports[month].transactionsUnknownCategories.items.map(transaction => (
+                                    <li key={transaction._id}>
+                                        {transaction.amount} --&nbsp;
+                                        {transaction.payee} --&nbsp;
+                                        {transaction.category}
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
                     </ul>
                 </li>
             ))}
@@ -76,3 +102,9 @@ const BudgetView = ({ reports }) => (
 )
 
 export default BudgetView
+
+/*
+<span className="amount">{transaction.amount}</span>
+<span className="payee">{transaction.payee}</span>
+<span className="category">{transaction.category}</span>
+ */

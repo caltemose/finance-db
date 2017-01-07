@@ -93,7 +93,16 @@ class BudgetViewContainer extends Component {
             })
         })
 
-        const excludedCategories = [
+        const notInBudgetExcludedCategories = [
+            'credit card payments',
+            'work expense',
+            'work reimbursement',
+            'work income-salary',
+            'interest-earned',
+            'atm fee rebate'
+        ]
+
+        const exemptFromTotalIncomeAndExpenses = [
             'credit card payments',
             'work expense',
             'work reimbursement'
@@ -107,7 +116,7 @@ class BudgetViewContainer extends Component {
             const transactionDateFormatted = transactionDate.format(FORMAT_YEAR_MONTH)
 
             // update the total income or expense amount for this month
-            if (!excludedCategories.includes(transaction.category)) {
+            if (!exemptFromTotalIncomeAndExpenses.includes(transaction.category)) {
                 if (transaction.amount > 0) {
                     byMonth[transactionDateFormatted].totalIncome += transaction.amount
                 } else {
@@ -126,7 +135,7 @@ class BudgetViewContainer extends Component {
                     byMonth[transactionDateFormatted].totalBudgetSpent += transaction.amount
                 } else {
                     //
-                    if (!excludedCategories.includes(transaction.category)) {
+                    if (!notInBudgetExcludedCategories.includes(transaction.category)) {
                         // track ignored transactions with categories that are not in the budget
                         byMonth[transactionDateFormatted].transactionsNotInBudget.items.push(transaction)
                         byMonth[transactionDateFormatted].transactionsNotInBudget.totalSpent += transaction.amount
