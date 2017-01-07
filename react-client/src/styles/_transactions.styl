@@ -8,6 +8,7 @@
     padding: 0.75em 0.5em
     display: flex
     background-color: #fff
+    transition: background-color 2s
 
     &:nth-child(even)
         background-color: #eee
@@ -25,6 +26,8 @@
             font-size: 0.8em
             text-transform: uppercase
 
+    &.is-saved
+        background-color: rgba(5, 29, 170, 0.25)
 
 .editable-transaction-form
     > span

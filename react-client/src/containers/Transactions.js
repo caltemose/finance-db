@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchTransactionsByDate, editTransaction } from '../actions/actions'
 import TransactionsList from '../components/transactions/TransactionsList'
+import { messenger } from '../components/Messenger'
 
 class Transactions extends Component {
 
@@ -20,6 +21,8 @@ class Transactions extends Component {
     componentDidMount () {
         const { startMonth, startYear, endMonth, endYear } = this.props.params
         this.props.fetchTransactionsByDate(startMonth, startYear, endMonth, endYear)
+        messenger.addMessage('Hello from Transaction')
+        console.log(messenger.getMessages())
     }
 
     onTransactionSave (id, payee, category) {

@@ -1,3 +1,5 @@
+import PubSub from 'pubsub-js'
+
 import {
     REQUEST_TRANSACTIONS,
     RECEIVE_TRANSACTIONS,
@@ -24,6 +26,7 @@ const updateById = (state, action) => {
             return state
 
         case EDIT_TRANSACTION_COMPLETE:
+            PubSub.publish('transaction-saved', action.id)
             return {
                 ...state,
                 [action.id]: {

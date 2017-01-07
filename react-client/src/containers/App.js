@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { fetchCategoriesIfNeeded, fetchBudgets } from '../actions/actions'
 import Header from '../components/Header'
 
+import { messenger } from '../components/Messenger'
+
 class App extends Component {
 
     /*
@@ -11,7 +13,8 @@ class App extends Component {
     See note in containers/Transactions.js
      */
     componentWillMount () {
-        console.log('App.componentDidMount()')
+        console.log('App.componentWillMount()')
+        messenger.addMessage('Hello from App')
         this.props.fetchCategoriesIfNeeded()
         this.props.fetchBudgets()
     }
