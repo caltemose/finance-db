@@ -14,11 +14,12 @@ class BudgetIndex extends Component {
         super(props)
         this.rangeStartDate = {}
         this.rangeEndDate = {}
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleSubmit (event) {
         event.preventDefault()
-        const { rangeStartDate, rangeEndDate } = this.props
+        const { rangeStartDate, rangeEndDate } = this
         const url = `/budgets/view/from/${rangeStartDate.month.value}/${rangeStartDate.year.value}/to/${rangeEndDate.month.value}/${rangeEndDate.year.value}`
         browserHistory.push(url)
     }

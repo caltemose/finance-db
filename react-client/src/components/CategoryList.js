@@ -50,13 +50,16 @@ class CategoryList extends Component {
                         })}
                     </ul>
                 }
-                <h2>Add Category</h2>
+                
                 <form className="add-category-form" onSubmit={this.submitNewCategory}>
+                    <h2>Add Category</h2>
+
                     <input type="text" name="category" ref={(input) => this.newCategoryName = input} />
                     <label>
                         <input type="checkbox" name="in-budget" ref={(input) => this.newCategoryInBudget = input} />
                         in Budget?
                     </label>
+
                     <button type="submit">Add Category</button>
                 </form>
             </div>
