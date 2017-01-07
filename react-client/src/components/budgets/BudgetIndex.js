@@ -25,18 +25,23 @@ class BudgetIndex extends Component {
     }
 
     render () {
+        let recentReports = []
+        for(var i=0; i<4; i++) {
+            let report = {}
+            const now = moment()
+            let monthDate = now.subtract(i, 'months')
+            report.startMonth = monthDate.format('MM')
+            report.startYear = monthDate.format('YYYY')
+            report.prettyDate = monthDate.format('MMMM YYYY')
+            recentReports.push(report)
+        }
+
         return (
             <div>
                 <h2>Budget Index</h2>
                 <ul>
                     <li>
                         <Link to="/budgets/create">Create New Budget</Link>
-                    </li>
-                    <li>
-                        <Link to="/budgets/edit">Edit Current Budget</Link>
-                    </li>
-                    <li>
-                        <Link to="/budgets/current">View Report - This Month</Link>
                     </li>
                     <li>
                         View Report for Range:
@@ -58,6 +63,17 @@ class BudgetIndex extends Component {
                             </fieldset>
                             <button type="submit" name="submit">Submit</button>
                         </form>
+                    </li>
+                    <li>
+                        <nav>Monthly Reports: &nbsp;
+                            {recentReports.map((report, i) => (
+                                <Link
+                                    key={`month-report-${i}`}
+                                    to={`/budgets/view/from/${report.startMonth}/${report.startYear}/to/${report.startMonth}/${report.startYear}`}>
+                                    {report.prettyDate}
+                                </Link>
+                            ))}
+                        </nav>
                     </li>
                 </ul>
 
