@@ -44,6 +44,17 @@ class BudgetIndex extends Component {
                         <Link to="/budgets/create">Create New Budget</Link>
                     </li>
                     <li>
+                        <nav>Monthly Reports: &nbsp;
+                            {recentReports.map((report, i) => (
+                                <Link
+                                    key={`month-report-${i}`}
+                                    to={`/budgets/view/from/${report.startMonth}/${report.startYear}/to/${report.startMonth}/${report.startYear}`}>
+                                    {report.prettyDate}
+                                </Link>
+                            ))}
+                        </nav>
+                    </li>
+                    <li>
                         View Report for Range:
                         <form className="range-selector-form" onSubmit={this.handleSubmit}>
                             <fieldset>
@@ -63,17 +74,6 @@ class BudgetIndex extends Component {
                             </fieldset>
                             <button type="submit" name="submit">Submit</button>
                         </form>
-                    </li>
-                    <li>
-                        <nav>Monthly Reports: &nbsp;
-                            {recentReports.map((report, i) => (
-                                <Link
-                                    key={`month-report-${i}`}
-                                    to={`/budgets/view/from/${report.startMonth}/${report.startYear}/to/${report.startMonth}/${report.startYear}`}>
-                                    {report.prettyDate}
-                                </Link>
-                            ))}
-                        </nav>
                     </li>
                 </ul>
 
