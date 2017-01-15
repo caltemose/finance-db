@@ -5,7 +5,7 @@
 
 .transaction
     margin: 0
-    padding: 0.75em 0.5em
+    padding: 0.75em 0.5em 1.5em
     display: flex
     background-color: #fff
     transition: background-color 2s
@@ -30,6 +30,9 @@
     &.is-saved
         background-color: rgba(5, 29, 170, 0.25)
 
+    &.uncategorized
+        border: 1px dashed red
+
 .editable-transaction-form
     > span
         display: inline-block
@@ -45,8 +48,19 @@
 .transaction-payee
     width: 24em
 
+.transaction-category-container
+    position: relative
+    display: inline-block
+
 .transaction-category
     width: 14em
+    display: inline-block
+
+.transaction-category-original
+    font-size: 0.6em
+    position: absolute
+    top: 1.7rem
+    left: 0.5rem
 
 .transaction-account
     width: 8em

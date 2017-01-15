@@ -52,7 +52,7 @@ export const editTransaction = (id, payee, category) => (dispatch, getState) => 
     dispatch(editTransactionPending(id))
 
     const data = { payee, category }
-    const request = new Request(`/api/transaction/${id}/simple-edit/`, {
+    const request = new Request(`/api/transactions/${id}/simple-edit/`, {
         headers: new Headers({
             'Content-Type': 'application/json'
         }),

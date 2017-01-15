@@ -22,7 +22,7 @@ const TransactionsList = ({ transactions, editTransaction, categories }) => {
                     {transactions.allIds.map(id => {
                         let transaction = transactions.byId[id]
                         transaction.inBudget = addBudgetStatus(transaction)
-                        return <EditableTransaction key={transaction._id} transaction={transaction} editTransaction={editTransaction} />
+                        return <EditableTransaction key={transaction._id} transaction={transaction} editTransaction={editTransaction} categories={categories} />
                     })}
                 </ul>
             </div>
