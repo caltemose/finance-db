@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import DocumentTitle from 'react-document-title'
 import { fetchTransactionsByDate, editTransaction } from '../actions/actions'
 import TransactionsList from '../components/transactions/TransactionsList'
 
@@ -28,7 +29,9 @@ class Transactions extends Component {
 
     render () {
         return (
-            <TransactionsList categories={this.props.categories} transactions={this.props.transactions} editTransaction={this.onTransactionSave} />
+            <DocumentTitle title="FDB: Transactions">
+                <TransactionsList categories={this.props.categories} transactions={this.props.transactions} editTransaction={this.onTransactionSave} />
+            </DocumentTitle>
         )
     }
 }

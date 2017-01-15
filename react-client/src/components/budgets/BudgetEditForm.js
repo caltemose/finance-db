@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { browserHistory } from 'react-router'
+import DocumentTitle from 'react-document-title'
 import moment from 'moment'
 
 import MonthSelector from '../simple/MonthSelector'
@@ -72,22 +73,24 @@ class BudgetEditForm extends Component {
             const startYear = startDate.format('YYYY')
             const startMonth = startDate.format('MM')
             return (
-                <div>
-                    <h2>Edit Budget</h2>
-                    <form className="budget-create-form" onSubmit={this.handleSubmit}>
-                        <div className="month-year-selector">
-                            Budget Start:
-                            <MonthSelector keyPrefix="range-start-month" attachRefTo={this.startDate} defaultValue={startMonth} />
-                            <YearSelector keyPrefix="range-start-year" attachRefTo={this.startDate} startYear={2016} endYear={2017} defaultValue={startYear} />
-                        </div>
+                <DocumentTitle title="FDB: Edit Budget">
+                    <div>
+                        <h2>Edit Budget</h2>
+                        <form className="budget-create-form" onSubmit={this.handleSubmit}>
+                            <div className="month-year-selector">
+                                Budget Start:
+                                <MonthSelector keyPrefix="range-start-month" attachRefTo={this.startDate} defaultValue={startMonth} />
+                                <YearSelector keyPrefix="range-start-year" attachRefTo={this.startDate} startYear={2016} endYear={2017} defaultValue={startYear} />
+                            </div>
 
-                        {this.props.categories.allIds.map((categoryId, i) => {
-                            return this.renderCategory(categoryId, i)
-                        })}
+                            {this.props.categories.allIds.map((categoryId, i) => {
+                                return this.renderCategory(categoryId, i)
+                            })}
 
-                        <button type="submit">Edit Budget</button>
-                    </form>
-                </div>
+                            <button type="submit">Edit Budget</button>
+                        </form>
+                    </div>
+                </DocumentTitle>
             )
 
         } else {

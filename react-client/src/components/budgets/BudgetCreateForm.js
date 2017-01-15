@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { browserHistory } from 'react-router'
+import DocumentTitle from 'react-document-title'
 
 import MonthSelector from '../simple/MonthSelector'
 import YearSelector from '../simple/YearSelector'
@@ -61,21 +62,23 @@ class BudgetCreateForm extends Component {
 
     render () {
         return (
-            <div>
-                <h2>Create a Budget</h2>
-                <form className="budget-create-form" onSubmit={this.handleSubmit}>
-                    <div className="month-year-selector">
-                        Budget Start:
-                        <MonthSelector keyPrefix="range-start-month" attachRefTo={this.startDate} />
-                        <YearSelector keyPrefix="range-start-year" attachRefTo={this.startDate} startYear={2016} endYear={2017} />
-                    </div>
+            <DocumentTitle title="FDB: Create Budget">
+                <div>
+                    <h2>Create a Budget</h2>
+                    <form className="budget-create-form" onSubmit={this.handleSubmit}>
+                        <div className="month-year-selector">
+                            Budget Start:
+                            <MonthSelector keyPrefix="range-start-month" attachRefTo={this.startDate} />
+                            <YearSelector keyPrefix="range-start-year" attachRefTo={this.startDate} startYear={2016} endYear={2017} />
+                        </div>
 
-                    {this.props.categoriesInBudget.map((categoryId, i) => {
-                        return this.renderCategory(categoryId, i)
-                    })}
-                    <button type="submit">Create Budget</button>
-                </form>
-            </div>
+                        {this.props.categoriesInBudget.map((categoryId, i) => {
+                            return this.renderCategory(categoryId, i)
+                        })}
+                        <button type="submit">Create Budget</button>
+                    </form>
+                </div>
+            </DocumentTitle>
         )
     }
 }

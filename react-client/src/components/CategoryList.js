@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react'
+import DocumentTitle from 'react-document-title'
 
 class CategoryList extends Component {
     static propTypes = {
@@ -30,39 +31,41 @@ class CategoryList extends Component {
     render () {
         const { categories, onInBudgetChange } = this.props
         return (
-            <div>
-                <h2>All Categories</h2>
-                {categories.isFetching ?
-                    <p>Loading...</p>
-                :
-                    <ul className="category-list">
-                        {categories.allIds.map(categoryId => {
-                            const category = categories.byId[categoryId]
-                            return (
-                                <li key={category._id}>
-                                    <h3>{category.category}</h3>
-                                    <label onChange={() => onInBudgetChange(category._id, category.inBudget)}>
-                                        <input type="checkbox" name="in-budget" defaultChecked={this.setChecked(category.inBudget)} />
-                                        in Budget?
-                                    </label>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                }
-                
-                <form className="add-category-form" onSubmit={this.submitNewCategory}>
-                    <h2>Add Category</h2>
+            <DocumentTitle title="FDB: Categories">
+                <div>
+                    <h2>All Categories</h2>
+                    {categories.isFetching ?
+                        <p>Loading...</p>
+                    :
+                        <ul className="category-list">
+                            {categories.allIds.map(categoryId => {
+                                const category = categories.byId[categoryId]
+                                return (
+                                    <li key={category._id}>
+                                        <h3>{category.category}</h3>
+                                        <label onChange={() => onInBudgetChange(category._id, category.inBudget)}>
+                                            <input type="checkbox" name="in-budget" defaultChecked={this.setChecked(category.inBudget)} />
+                                            in Budget?
+                                        </label>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    }
 
-                    <input type="text" name="category" ref={(input) => this.newCategoryName = input} />
-                    <label>
-                        <input type="checkbox" name="in-budget" ref={(input) => this.newCategoryInBudget = input} />
-                        in Budget?
-                    </label>
+                    <form className="add-category-form" onSubmit={this.submitNewCategory}>
+                        <h2>Add Category</h2>
 
-                    <button type="submit">Add Category</button>
-                </form>
-            </div>
+                        <input type="text" name="category" ref={(input) => this.newCategoryName = input} />
+                        <label>
+                            <input type="checkbox" name="in-budget" ref={(input) => this.newCategoryInBudget = input} />
+                            in Budget?
+                        </label>
+
+                        <button type="submit">Add Category</button>
+                    </form>
+                </div>
+            </DocumentTitle>
         )
     }
 }

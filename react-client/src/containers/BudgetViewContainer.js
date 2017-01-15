@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import DocumentTitle from 'react-document-title'
 import moment from 'moment'
 
 import { fetchBudgetInRange, fetchTransactionsByDate } from '../actions/actions'
@@ -153,11 +154,17 @@ class BudgetViewContainer extends Component {
     }
 
     render () {
+        let html
         if (!this.state.budgetLoading && !this.state.transactionsLoading) {
-            return <BudgetView reports={this.state.reports} />
+             html = (<BudgetView reports={this.state.reports} />)
         } else {
-            return <div><p>Loading/Processing...</p></div>
+            html = (<div><p>Loading/Processing...</p></div>)
         }
+        return (
+            <DocumentTitle title="FDB: View Budget">
+                {html}
+            </DocumentTitle>
+        )
     }
 }
 
