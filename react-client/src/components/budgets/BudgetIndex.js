@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react'
 import { Link, browserHistory } from 'react-router'
 import DocumentTitle from 'react-document-title'
 import moment from 'moment'
+import MonthLinks from '../simple/MonthLinks'
 
 import MonthSelector from '../simple/MonthSelector'
 import YearSelector from '../simple/YearSelector'
@@ -26,17 +27,6 @@ class BudgetIndex extends Component {
     }
 
     render () {
-        let recentReports = []
-        for(var i=0; i<4; i++) {
-            let report = {}
-            const now = moment()
-            let monthDate = now.subtract(i, 'months')
-            report.startMonth = monthDate.format('MM')
-            report.startYear = monthDate.format('YYYY')
-            report.prettyDate = monthDate.format('MMMM YYYY')
-            recentReports.push(report)
-        }
-
         return (
             <DocumentTitle title="FDB: Budgets">
                 <div>
@@ -46,15 +36,8 @@ class BudgetIndex extends Component {
                             <Link to="/budgets/create">Create New Budget</Link>
                         </li>
                         <li>
-                            <nav>Monthly Reports: &nbsp;
-                                {recentReports.map((report, i) => (
-                                    <Link
-                                        key={`month-report-${i}`}
-                                        to={`/budgets/view/from/${report.startMonth}/${report.startYear}/to/${report.startMonth}/${report.startYear}`}>
-                                        {report.prettyDate}
-                                    </Link>
-                                ))}
-                            </nav>
+                            Monthly Reports: &nbsp;
+                            <MonthLinks count={4} prefix='/budgets/view' />
                         </li>
                         <li>
                             View Report for Range:
