@@ -7,3 +7,4 @@ npm-debug.log
 react-1
 react-client/src/*.css
 ignore
+backups

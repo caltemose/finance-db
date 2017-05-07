@@ -170,3 +170,5 @@ let fileIn = path.normalize(__dirname + '/../financial-data/csv/' + fileArg)
 
 // check file/kick off actions
 checkForFile()
+
+// node index.js 2017-02-usaa-checking.csv usaa-checking
