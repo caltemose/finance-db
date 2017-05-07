@@ -1,3 +1,3 @@
 exports.Transaction = require('./transaction')
-exports.Category = require('./Category')
-exports.Budget = require('./Budget')
+exports.Category = require('./category')
+exports.Budget = require('./budget')
