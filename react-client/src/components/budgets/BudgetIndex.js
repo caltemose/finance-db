@@ -22,7 +22,8 @@ class BudgetIndex extends Component {
     handleSubmit (event) {
         event.preventDefault()
         const { rangeStartDate, rangeEndDate } = this
-        const url = `/budgets/view/from/${rangeStartDate.month.value}/${rangeStartDate.year.value}/to/${rangeEndDate.month.value}/${rangeEndDate.year.value}`
+        let url = `/budgets/view/from/${rangeStartDate.month.value}/${rangeStartDate.year.value}/to/${rangeEndDate.month.value}/${rangeEndDate.year.value}`
+        if (this.combine) url += '?combine=true'
         browserHistory.push(url)
     }
 
@@ -57,6 +58,12 @@ class BudgetIndex extends Component {
                                         <YearSelector keyPrefix="range-end-year" attachRefTo={this.rangeEndDate} startYear={2016} endYear={2017} />
                                     </div>
                                 </fieldset>
+
+                                <label>
+                                    <input type="checkbox" name="combine" ref={(input) => this.combine = input}/> 
+                                    combine
+                                </label>
+
                                 <button type="submit" name="submit">Submit</button>
                             </form>
                         </li>
