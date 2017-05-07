@@ -28,6 +28,7 @@ const BudgetView = ({ reports }) => (
                             <span className="budget-month-category-name">Category</span>
                             <span className="budget-month-category-total">Total</span>
                             <span className="budget-month-category-limit">Limit</span>
+                            <span className="budget-month-category-diff">Diff</span>
                         </li>
                         {Object.keys(reports[month].categories).map(categoryId => {
                             const category = reports[month].categories[categoryId]
@@ -46,6 +47,7 @@ const BudgetView = ({ reports }) => (
                                     <span className="budget-month-category-name">{category.categoryName}</span>
                                     <span className="budget-month-category-total">{prettyAmount(category.totalSpent)}</span>
                                     <span className="budget-month-category-limit">{category.budgetLimit}</span>
+                                    <span className="budget-month-category-diff">{diff}</span>
                                 </li>
                             )
                         })}
