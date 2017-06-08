@@ -15,6 +15,7 @@
     "promise": "^7.1.1"
   },
   "devDependencies": {
-    "args": "^3.0.2"
+    "args": "^3.0.2",
+    "bluebird": "^3.5.0"
   }
 }
