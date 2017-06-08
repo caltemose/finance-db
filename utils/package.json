@@ -11,6 +11,10 @@
   "dependencies": {
     "line-reader": "^0.4.0",
     "moment": "^2.18.1",
-    "mongodb": "^2.2.12"
+    "mongodb": "^2.2.12",
+    "promise": "^7.1.1"
+  },
+  "devDependencies": {
+    "args": "^3.0.2"
   }
 }

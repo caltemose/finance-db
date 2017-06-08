@@ -1,6 +1,6 @@
 'use strict'
 
-const CollectionExporter = require('./CollectionExporter')
+const CollectionExporter = require('./modules/CollectionExporter')
 
 const dbUrl = 'mongodb://localhost:27017/finances-db'
 const collectionName = 'categories'
