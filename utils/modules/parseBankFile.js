@@ -3,11 +3,10 @@ const Promise = require('bluebird')
 const getObjectFromTransactionLine = require('./getObjectFromTransactionLine')
 const getCleanDataFromOriginal = require('./getCleanDataFromOriginal')
 
-module.exports = function parseFile (result) {
-    console.log('parseFile', result)
+module.exports = function parseFile (inputFile, account) {
     return new Promise((fulfill, reject) => {
         let lines = []
-        linereader.eachLine(options[0], (line, last) => {
+        linereader.eachLine(inputFile, (line, last) => {
             // get object from line
             let original = getObjectFromTransactionLine(line)
             if (original) {
@@ -16,8 +15,6 @@ module.exports = function parseFile (result) {
                 // push line object into global array
                 lines.push(cleaned)
             }
-
-            lines.push(line)
 
             // return final array of lines
             if (last) {
