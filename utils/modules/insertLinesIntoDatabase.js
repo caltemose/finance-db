@@ -1,5 +1,6 @@
 const Promise = require('bluebird')
 const MongoClient = require('mongodb').MongoClient
+const ObjectId = require('mongodb').ObjectId
 
 module.exports = function insertLinesIntoDatabase (lines) {
     console.log('insertDataIntoDatabase', lines.length)
@@ -9,6 +10,8 @@ module.exports = function insertLinesIntoDatabase (lines) {
             if (err) {
                 reject(err)
             }
+
+            lines = lines.map(updateDocId)
 
             const collection = db.collection('transactions')
             collection.insertMany(lines, (err, res) => {
@@ -22,4 +25,9 @@ module.exports = function insertLinesIntoDatabase (lines) {
             })
         })
     })
+}
+
+function updateDocId (doc) {
+    doc._id = new ObjectId(doc._id)
+    return doc
 }

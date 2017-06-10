@@ -8,7 +8,7 @@ module.exports = function checkFileExistence (inputFile) {
             if (err) {
                 reject(new Error('A file does not exist at this path: ' + inputFile))
             } else {
-                resolve('File exists at: ' + inputFile)
+                resolve(inputFile)
             }
         })
     })
