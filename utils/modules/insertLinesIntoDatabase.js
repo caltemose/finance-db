@@ -11,7 +11,7 @@ module.exports = function insertLinesIntoDatabase (lines) {
                 reject(err)
             }
 
-            lines = lines.map(updateDocId)
+            lines = lines.map(update)
 
             const collection = db.collection('transactions')
             collection.insertMany(lines, (err, res) => {
@@ -29,5 +29,21 @@ module.exports = function insertLinesIntoDatabase (lines) {
 
 function updateDocId (doc) {
     doc._id = new ObjectId(doc._id)
+    return doc
+}
+
+function updateDates (doc) {
+    if (doc.date) {
+        doc.date = new Date(doc.date)
+    }
+    if (doc.original && doc.original.date) {
+        doc.original.date = new Date(doc.date)
+    }
+    return doc
+}
+
+function update (doc) {
+    doc = updateDocId(doc)
+    doc = updateDates(doc)
     return doc
 }

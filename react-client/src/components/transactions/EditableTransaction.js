@@ -61,7 +61,7 @@ class EditableTransaction extends Component {
         let classes = transaction.amount > 0 ? 'transaction deposit' : 'transaction'
         classes += transaction.inBudget ? ' in-budget' : ''
         classes += this.state.statusClass ? ' ' + this.state.statusClass : ''
-        classes += defaultCategoryValue === 'uncategorized' ? ' uncategorized' : ''
+        // classes += defaultCategoryValue === 'uncategorized' ? ' uncategorized' : ''
 
         return (
             <li key={transaction._id} className={classes}>
@@ -70,7 +70,7 @@ class EditableTransaction extends Component {
                     <span className="transaction-amount">{prettyAmount(transaction.amount)}</span>
 
                     <input className="transaction-payee" type="text" name="payee" defaultValue={transaction.payee} ref={(input) => this.payeeInput = input} />
-
+                    {/*
                     <div className="transaction-category-container">
                         <select
                             className="transaction-category"
@@ -88,10 +88,22 @@ class EditableTransaction extends Component {
                             {transaction.category}
                         </span>
                     </div>
-
+                    */}
                     <span className="transaction-account">{transaction.account}</span>
 
                     <button type="submit" name="submit">Save</button>
+
+                    {transaction.items.map((item, index) => {
+                        return (
+                            <fieldset key={transaction._id + '-' + index}>
+                                {item.amount}
+                                ::  
+                                {item.description}
+                                ::
+                                {item.category}
+                            </fieldset>
+                        )
+                    })}
                 </form>
             </li>
         )

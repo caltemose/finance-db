@@ -19,8 +19,10 @@ router.get('/from/:startMonth/:startYear/to/:endMonth/:endYear', (req, res) => {
     // get the last day of the given end month by adding a month and subtracting a day
     endMoment.add(1, 'M').subtract('1', 'd')
 
+    const find = { date: { $gte: startMoment.format(), $lte: endMoment.format() } }
+
     Transaction
-        .find({ date: { $gte: startMoment.format(), $lte: endMoment.format() }})
+        .find(find)
         .sort({ date: -1 })
         .exec((err, transactions) => {
             if (err) {

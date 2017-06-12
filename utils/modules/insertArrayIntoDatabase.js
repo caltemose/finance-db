@@ -9,7 +9,7 @@ module.exports = function insertArrayIntoDatabase (databaseUrl, collectionName, 
                 reject(err)
             }
 
-            docs = docs.map(updateDocId)
+            docs = docs.map(update)
 
             const collection = db.collection(collectionName)
             collection.insertMany(docs, (err, res) => {
@@ -27,5 +27,21 @@ module.exports = function insertArrayIntoDatabase (databaseUrl, collectionName, 
 
 function updateDocId (doc) {
     doc._id = new ObjectId(doc._id)
+    return doc
+}
+
+function updateDates (doc) {
+    if (doc.date) {
+        doc.date = new Date(doc.date)
+    }
+    if (doc.original && doc.original.date) {
+        doc.original.date = new Date(doc.date)
+    }
+    return doc
+}
+
+function update (doc) {
+    doc = updateDocId(doc)
+    doc = updateDates(doc)
     return doc
 }
