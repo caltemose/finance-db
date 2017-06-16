@@ -4,7 +4,7 @@ import RangeForm from '../RangeForm'
 import MonthLinks from '../simple/MonthLinks'
 
 const TransactionIndex = () => (
-    <DocumentTitle title="FDB: Transactions">
+    <DocumentTitle title="Finances: Transactions">
         <div>
             <h2>Transaction Index</h2>
             <ul>

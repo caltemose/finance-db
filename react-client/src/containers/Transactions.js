@@ -23,13 +23,13 @@ class Transactions extends Component {
         this.props.fetchTransactionsByDate(startMonth, startYear, endMonth, endYear)
     }
 
-    onTransactionSave (id, payee, category) {
-        this.props.editTransaction(id, payee, category)
+    onTransactionSave (id, payee, items) {
+        this.props.editTransaction(id, payee, items)
     }
 
     render () {
         return (
-            <DocumentTitle title="FDB: Transactions">
+            <DocumentTitle title="Finances: Transactions">
                 <TransactionsList categories={this.props.categories} transactions={this.props.transactions} editTransaction={this.onTransactionSave} />
             </DocumentTitle>
         )

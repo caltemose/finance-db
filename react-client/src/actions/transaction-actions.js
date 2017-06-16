@@ -47,11 +47,11 @@ export const fetchTransactionsByDate = (startMonth, startYear, endMonth, endYear
         })
 }
 
-export const editTransaction = (id, payee, category) => (dispatch, getState) => {
-    console.log('editTransaction', id, payee, category)
+export const editTransaction = (id, payee, items) => (dispatch, getState) => {
+    console.log('editTransaction', id, payee, items)
     dispatch(editTransactionPending(id))
 
-    const data = { payee, category }
+    const data = { payee, items }
     const request = new Request(`/api/transactions/${id}/simple-edit/`, {
         headers: new Headers({
             'Content-Type': 'application/json'

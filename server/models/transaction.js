@@ -8,14 +8,13 @@ var schema = mongoose.Schema({
         description: String,
         account: String
     },
-    category: String,
     amount: Number,
     date: Date,
     account: String,
     payee: String,
     notes: String,
-    split: [
-        { amount: Number, category: String, notes: String }
+    items: [
+        { amount: Number, category: String, description: String }
     ]
 });
 

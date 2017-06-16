@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { prettyAmount, prettyDate } from '../../helpers'
 import PubSub from 'pubsub-js'
+import EditableTransactionItem from './EditableTransactionItem'
 
 class EditableTransaction extends Component {
     static propTypes = {
@@ -11,10 +12,19 @@ class EditableTransaction extends Component {
 
     constructor (props) {
         super(props)
-        this.state = { statusClass: null }
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.state = {
+            statusClass: null,
+            items: []
+        }
+        
         this.transactionSaved = this.transactionSaved.bind(this)
         this.clearStatusClass = this.clearStatusClass.bind(this)
+    }
+
+    componentWillMount () {
+        this.setState({
+            items: [ ...this.props.transaction.items ]
+        })
     }
 
     subscribeToSave () {
@@ -37,13 +47,33 @@ class EditableTransaction extends Component {
         this.setState({ statusClass: null })
     }
 
-    handleSubmit (event) {
+    handleSubmit = (event) => {
         event.preventDefault()
         this.subscribeToSave()
+
         const id = this.props.transaction._id
         const payee = this.payeeInput.value
-        const category = this.categoryInput.value
-        this.props.editTransaction(id, payee, category)
+        
+        // do line item amounts equal the total?
+        const total = this.props.transaction.amount
+        // console.log('this.state.items', this.state.items, Array.isArray(this.state.items))
+        
+        const itemsTotal = this.state.items.reduce((prev, curr) => {
+            // console.log(prev, curr)
+            const prevVal = typeof(prev) === 'number' ? prev : prev.amount
+            return prevVal + curr.amount
+        }, 0)
+
+        // console.log('total', total, 'itemsTotal', itemsTotal)
+        if (total !== itemsTotal) {
+            console.error('total', total, 'itemsTotal', itemsTotal)
+            alert('line items for this transaction must add up to the total amount')
+        } else {
+            console.log('saving transaction:')
+            console.log(id, payee)
+            console.log(this.state.items)
+            this.props.editTransaction(id, payee, this.state.items)
+        }
     }
 
     getDefaultCategoryValue (categoryName, categories) {
@@ -53,6 +83,31 @@ class EditableTransaction extends Component {
                 name = categoryName
         })
         return name
+    }
+
+    handleItemChange = (index, field, value) => {
+        let items = [ ...this.state.items ]
+        items[index][field] = value
+        this.setState({ items })
+    }
+
+    addTransactionItem = (event) => {
+        event.preventDefault()
+        const item = {
+            amount: 0,
+            description: '',
+            category: ''
+        }
+        this.setState({
+            items: [
+                ...this.state.items,
+                item
+            ]
+        })
+    }
+
+    deleteTransactionItem = () => {
+        
     }
 
     render () {
@@ -70,44 +125,29 @@ class EditableTransaction extends Component {
                     <span className="transaction-amount">{prettyAmount(transaction.amount)}</span>
 
                     <input className="transaction-payee" type="text" name="payee" defaultValue={transaction.payee} ref={(input) => this.payeeInput = input} />
-                    {/*
-                    <div className="transaction-category-container">
-                        <select
-                            className="transaction-category"
-                            name="payee"
-                            defaultValue={defaultCategoryValue}
-                            ref={input => this.categoryInput = input}>
-                            {categories.allIds.map(id => {
-                                const categoryName = categories.byId[id].category
-                                return (
-                                    <option key={id} value={categoryName}>{categoryName}</option>
-                                )
-                            })}
-                        </select>
-                        <span className="transaction-category-original">
-                            {transaction.category}
-                        </span>
-                    </div>
-                    */}
+
                     <span className="transaction-account">{transaction.account}</span>
 
                     <button type="submit" name="submit">Save</button>
 
-                    {transaction.items.map((item, index) => {
-                        return (
-                            <fieldset key={transaction._id + '-' + index}>
-                                {item.amount}
-                                ::  
-                                {item.description}
-                                ::
-                                {item.category}
-                            </fieldset>
-                        )
+                    {this.state.items.map((item, index) => {
+                        const editableItem = <EditableTransactionItem 
+                            key={transaction._id + '-' + index} 
+                            index={index} 
+                            amount={item.amount}
+                            description={item.description}
+                            category={item.category}
+                            handleItemChange={this.handleItemChange}
+                            addTransactionItem={this.addTransactionItem}
+                            deleteTransactionItem={this.deleteTransactionItem}
+                        />
+                        return editableItem
                     })}
                 </form>
             </li>
         )
     }
+
 }
 
 export default EditableTransaction

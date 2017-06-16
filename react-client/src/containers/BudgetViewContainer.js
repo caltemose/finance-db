@@ -285,7 +285,7 @@ class BudgetViewContainer extends Component {
             html = (<div><p>Loading/Processing...</p></div>)
         }
         return (
-            <DocumentTitle title="FDB: View Budget">
+            <DocumentTitle title="Finances: View Budget">
                 {html}
             </DocumentTitle>
         )

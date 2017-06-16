@@ -29,7 +29,7 @@ class BudgetIndex extends Component {
 
     render () {
         return (
-            <DocumentTitle title="FDB: Budgets">
+            <DocumentTitle title="Finances: Budgets">
                 <div>
                     <h2>Budget Index</h2>
                     <ul>

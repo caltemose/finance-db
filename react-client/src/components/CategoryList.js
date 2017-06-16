@@ -31,7 +31,7 @@ class CategoryList extends Component {
     render () {
         const { categories, onInBudgetChange } = this.props
         return (
-            <DocumentTitle title="FDB: Categories">
+            <DocumentTitle title="Finances: Categories">
                 <div>
                     <h2>All Categories</h2>
                     {categories.isFetching ?

@@ -38,9 +38,10 @@ router.get('/from/:startMonth/:startYear/to/:endMonth/:endYear', (req, res) => {
 router.put('/:id/simple-edit/', (req, res) => {
     let query = Transaction.where({_id: req.params.id})
     let update = {
-        category: req.body.category,
-        payee: req.body.payee
+        payee: req.body.payee,
+        items: req.body.items
     }
+    console.log(update)
     query.findOneAndUpdate(update, function (err, doc) {
         if (err) {
             console.log(err)
