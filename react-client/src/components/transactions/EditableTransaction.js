@@ -56,22 +56,19 @@ class EditableTransaction extends Component {
         
         // do line item amounts equal the total?
         const total = this.props.transaction.amount
-        // console.log('this.state.items', this.state.items, Array.isArray(this.state.items))
         
         const itemsTotal = this.state.items.reduce((prev, curr) => {
-            // console.log(prev, curr)
             const prevVal = typeof(prev) === 'number' ? prev : prev.amount
             return prevVal + curr.amount
         }, 0)
 
-        // console.log('total', total, 'itemsTotal', itemsTotal)
         if (total !== itemsTotal) {
             console.error('total', total, 'itemsTotal', itemsTotal)
             alert('line items for this transaction must add up to the total amount')
         } else {
-            console.log('saving transaction:')
-            console.log(id, payee)
-            console.log(this.state.items)
+            // console.log('saving transaction:')
+            // console.log(id, payee)
+            // console.log(this.state.items)
             this.props.editTransaction(id, payee, this.state.items)
         }
     }

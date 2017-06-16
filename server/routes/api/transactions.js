@@ -41,7 +41,6 @@ router.put('/:id/simple-edit/', (req, res) => {
         payee: req.body.payee,
         items: req.body.items
     }
-    console.log(update)
     query.findOneAndUpdate(update, function (err, doc) {
         if (err) {
             console.log(err)

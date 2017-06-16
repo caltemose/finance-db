@@ -24,11 +24,11 @@ class EditableTransactionItem extends Component {
 
         return (
             <fieldset className="transaction-item" key={index}>
-                <input className="transaction-item-amount" type="number" defaultValue={amount} onChange={ this.handleAmountChange } />
+                <input className="transaction-item-amount" type="number" defaultValue={amount} onChange={ this.handleAmountChange } placeholder="amount" />
                     
-                <input className="transaction-item-description" type="text" defaultValue={description} onChange={ this.handleDescriptionChange } />
+                <input className="transaction-item-description" type="text" defaultValue={description} onChange={ this.handleDescriptionChange } placeholder="description" />
                 
-                <input className="transaction-item-category" type="text" defaultValue={category} onChange={ this.handleCategoryChange } />
+                <input className="transaction-item-category" type="text" defaultValue={category} onChange={ this.handleCategoryChange } placeholder="category" />
 
                 <button onClick={addTransactionItem}>+</button>
                 {/*<button onClick={this.props.deleteTransactionItem}>-</button>*/}
