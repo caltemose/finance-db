@@ -16,7 +16,7 @@ class EditableTransaction extends Component {
             statusClass: null,
             items: []
         }
-        
+
         this.transactionSaved = this.transactionSaved.bind(this)
         this.clearStatusClass = this.clearStatusClass.bind(this)
     }
@@ -53,10 +53,10 @@ class EditableTransaction extends Component {
 
         const id = this.props.transaction._id
         const payee = this.payeeInput.value
-        
+
         // do line item amounts equal the total?
         const total = this.props.transaction.amount
-        
+
         const itemsTotal = this.state.items.reduce((prev, curr) => {
             const prevVal = typeof(prev) === 'number' ? prev : prev.amount
             return prevVal + curr.amount
@@ -103,8 +103,10 @@ class EditableTransaction extends Component {
         })
     }
 
-    deleteTransactionItem = () => {
-        
+    deleteTransactionItem = (index) => {
+        let items = [...this.state.items]
+        items.splice(index, 1)
+        this.setState({ items })
     }
 
     render () {
@@ -128,9 +130,9 @@ class EditableTransaction extends Component {
                     <button type="submit" name="submit">Save</button>
 
                     {this.state.items.map((item, index) => {
-                        const editableItem = <EditableTransactionItem 
-                            key={transaction._id + '-' + index} 
-                            index={index} 
+                        const editableItem = <EditableTransactionItem
+                            key={transaction._id + '-' + index}
+                            index={index}
                             amount={item.amount}
                             description={item.description}
                             category={item.category}
