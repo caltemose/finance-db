@@ -44,13 +44,13 @@ class BudgetViewContainer extends Component {
             this.processCombined()
             return
         }
-        
+
         this.processSeparate()
     }
 
     processCombined () {
         const { startMonth, startYear, endMonth, endYear } = this.props.params
-        
+
         // create array of months in the given range
         let months = []
         const firstMonth = moment(startYear + '/' + startMonth, FORMAT_YEAR_MONTH)
@@ -116,12 +116,16 @@ class BudgetViewContainer extends Component {
             'work reimbursement'
         ]
 
+        const transactionItems = []
+        this.props.transactions.forEach(id => {
+            const trans = this.props.transactions.byId[id]
+
+        })
+
         // loop through all transactions in the given range
         this.props.transactions.allIds.forEach(id => {
             const transaction = this.props.transactions.byId[id]
             const categoryObject = categoriesByName[transaction.category]
-            // const transactionDate = moment(transaction.date)
-            // const transactionDateFormatted = transactionDate.format(FORMAT_YEAR_MONTH)
 
             // update the total income or expense amount
             if (!exemptFromTotalIncomeAndExpenses.includes(transaction.category)) {
@@ -231,47 +235,91 @@ class BudgetViewContainer extends Component {
             'work reimbursement'
         ]
 
-        // loop through all transactions in the given range
+        const transactionItems = []
         this.props.transactions.allIds.forEach(id => {
             const transaction = this.props.transactions.byId[id]
-            const categoryObject = categoriesByName[transaction.category]
-            const transactionDate = moment(transaction.date)
-            const transactionDateFormatted = transactionDate.format(FORMAT_YEAR_MONTH)
+            transaction.items.forEach(item => {
+                let transItem = {}
+                const categoryObject = categoriesByName[item.category]
+                const transactionDate = moment(transaction.date)
+                const transactionDateFormatted = transactionDate.format(FORMAT_YEAR_MONTH)
 
-            // update the total income or expense amount for this month
-            if (!exemptFromTotalIncomeAndExpenses.includes(transaction.category)) {
-                if (transaction.amount > 0) {
-                    byMonth[transactionDateFormatted].totalIncome += transaction.amount
-                } else {
-                    byMonth[transactionDateFormatted].totalExpenses += Math.abs(transaction.amount)
-                }
-            }
-
-            // if no categoryObject, this transaction has an unrecognized category
-            if (categoryObject) {
-                const transactionCategoryId = categoryObject._id
-                // only manipulate the budget report if this transaction
-                // has a category tracked by the budget
-                if (budgetCategoryIds.includes(transactionCategoryId)) {
-                    // handle transactions with categories that are in the budget
-                    byMonth[transactionDateFormatted].categories[transactionCategoryId].totalSpent += transaction.amount
-                    byMonth[transactionDateFormatted].totalBudgetSpent += transaction.amount
-                } else {
-                    //
-                    if (!notInBudgetExcludedCategories.includes(transaction.category)) {
-                        // track ignored transactions with categories that are not in the budget
-                        byMonth[transactionDateFormatted].transactionsNotInBudget.items.push(transaction)
-                        byMonth[transactionDateFormatted].transactionsNotInBudget.totalSpent += transaction.amount
+                // update the total income or expense amount for this month
+                if (!exemptFromTotalIncomeAndExpenses.includes(item.category)) {
+                    if (item.amount > 0) {
+                        byMonth[transactionDateFormatted].totalIncome += item.amount
+                    } else {
+                        byMonth[transactionDateFormatted].totalExpenses += Math.abs(item.amount)
                     }
                 }
 
-            } else {
-                // track transactions with unrecognized categories
-                byMonth[transactionDateFormatted].transactionsUnknownCategories.items.push(transaction)
-                byMonth[transactionDateFormatted].transactionsUnknownCategories.totalSpent += transaction.amount
-            }
+                if (categoryObject) {
+                    const itemCategoryId = categoryObject._id
+                    // only manipulate the budget report if this transaction
+                    // has a category tracked by the budget
+                    if (budgetCategoryIds.includes(itemCategoryId)) {
+                        // handle transactions with categories that are in the budget
+                        byMonth[transactionDateFormatted].categories[itemCategoryId].totalSpent += item.amount
+                        byMonth[transactionDateFormatted].totalBudgetSpent += item.amount
+                    } else {
+                        //
+                        if (!notInBudgetExcludedCategories.includes(item.category)) {
+                            // track ignored transactions with categories that are not in the budget
+                            byMonth[transactionDateFormatted].transactionsNotInBudget.items.push(item)
+                            byMonth[transactionDateFormatted].transactionsNotInBudget.totalSpent += item.amount
+                        }
+                    }
+
+                } else {
+                    // track transactions with unrecognized categories
+                    byMonth[transactionDateFormatted].transactionsUnknownCategories.items.push(item)
+                    byMonth[transactionDateFormatted].transactionsUnknownCategories.totalSpent += item.amount
+                }
+            })
         })
 
+        // loop through all transactions in the given range
+        // this.props.transactions.allIds.forEach(id => {
+        //     const transaction = this.props.transactions.byId[id]
+        //     const categoryObject = categoriesByName[transaction.category]
+        //     const transactionDate = moment(transaction.date)
+        //     const transactionDateFormatted = transactionDate.format(FORMAT_YEAR_MONTH)
+        //
+        //     // update the total income or expense amount for this month
+        //     if (!exemptFromTotalIncomeAndExpenses.includes(transaction.category)) {
+        //         if (transaction.amount > 0) {
+        //             byMonth[transactionDateFormatted].totalIncome += transaction.amount
+        //         } else {
+        //             byMonth[transactionDateFormatted].totalExpenses += Math.abs(transaction.amount)
+        //         }
+        //     }
+        //
+        //     // if no categoryObject, this transaction has an unrecognized category
+        //     if (categoryObject) {
+        //         const transactionCategoryId = categoryObject._id
+        //         // only manipulate the budget report if this transaction
+        //         // has a category tracked by the budget
+        //         if (budgetCategoryIds.includes(transactionCategoryId)) {
+        //             // handle transactions with categories that are in the budget
+        //             byMonth[transactionDateFormatted].categories[transactionCategoryId].totalSpent += transaction.amount
+        //             byMonth[transactionDateFormatted].totalBudgetSpent += transaction.amount
+        //         } else {
+        //             //
+        //             if (!notInBudgetExcludedCategories.includes(transaction.category)) {
+        //                 // track ignored transactions with categories that are not in the budget
+        //                 byMonth[transactionDateFormatted].transactionsNotInBudget.items.push(transaction)
+        //                 byMonth[transactionDateFormatted].transactionsNotInBudget.totalSpent += transaction.amount
+        //             }
+        //         }
+        //
+        //     } else {
+        //         // track transactions with unrecognized categories
+        //         byMonth[transactionDateFormatted].transactionsUnknownCategories.items.push(transaction)
+        //         byMonth[transactionDateFormatted].transactionsUnknownCategories.totalSpent += transaction.amount
+        //     }
+        // })
+
+        console.log(byMonth)
         this.setState({ reports: byMonth })
     }
 

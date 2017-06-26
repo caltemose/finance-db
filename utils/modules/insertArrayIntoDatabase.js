@@ -37,6 +37,13 @@ function updateDates (doc) {
     if (doc.original && doc.original.date) {
         doc.original.date = new Date(doc.date)
     }
+    if (doc.createdOn) {
+        doc.createdOn = new Date(doc.createdOn)
+    }
+    if (doc.startDate) {
+        doc.startDate = new Date(doc.startDate)
+    }
+
     return doc
 }
 
