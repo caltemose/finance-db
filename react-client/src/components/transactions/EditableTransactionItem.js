@@ -28,7 +28,7 @@ class EditableTransactionItem extends Component {
     }
 
     render () {
-        const { index, amount, description, category, addTransactionItem } = this.props
+        const { index, amount, description, category, categories, addTransactionItem } = this.props
         let deleteBtn = ''
         if (index > 0) {
             deleteBtn = <button onClick={(event) => { this.handleDeleteItem(event, index) }}>-</button>
@@ -40,7 +40,14 @@ class EditableTransactionItem extends Component {
 
                 <input className="transaction-item-description" type="text" defaultValue={description} onChange={ this.handleDescriptionChange } placeholder="description" />
 
-                <input className="transaction-item-category" type="text" defaultValue={category} onChange={ this.handleCategoryChange } placeholder="category" />
+                {/*<input className="transaction-item-category" type="text" defaultValue={category} onChange={ this.handleCategoryChange } placeholder="category" />*/}
+
+                <select value={category} onChange={this.handleCategoryChange} className="transaction-item-category">
+                    <option value="">missing</option>
+                    {categories.allIds.map(categoryId => 
+                        <option key={categoryId} value={categories.byId[categoryId].category}>{categories.byId[categoryId].category}</option>
+                    )}
+                </select>
 
                 <button onClick={addTransactionItem}>+</button>
                 {deleteBtn}

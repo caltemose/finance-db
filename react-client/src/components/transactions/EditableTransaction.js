@@ -110,7 +110,7 @@ class EditableTransaction extends Component {
     }
 
     render () {
-        const { transaction } = this.props
+        const { transaction, categories } = this.props
         // const { transaction, categories } = this.props
         // const defaultCategoryValue = this.getDefaultCategoryValue(transaction.category, categories)
         let classes = transaction.amount > 0 ? 'transaction deposit' : 'transaction'
@@ -138,6 +138,7 @@ class EditableTransaction extends Component {
                             amount={item.amount}
                             description={item.description}
                             category={item.category}
+                            categories={categories}
                             handleItemChange={this.handleItemChange}
                             addTransactionItem={this.addTransactionItem}
                             deleteTransactionItem={this.deleteTransactionItem}
