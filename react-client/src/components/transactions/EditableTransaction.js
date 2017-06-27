@@ -110,11 +110,13 @@ class EditableTransaction extends Component {
     }
 
     render () {
-        const { transaction, categories } = this.props
-        const defaultCategoryValue = this.getDefaultCategoryValue(transaction.category, categories)
+        const { transaction } = this.props
+        // const { transaction, categories } = this.props
+        // const defaultCategoryValue = this.getDefaultCategoryValue(transaction.category, categories)
         let classes = transaction.amount > 0 ? 'transaction deposit' : 'transaction'
         classes += transaction.inBudget ? ' in-budget' : ''
         classes += this.state.statusClass ? ' ' + this.state.statusClass : ''
+        // TODO update implementation of uncategorized class for transaction.items instead of transactions
         // classes += defaultCategoryValue === 'uncategorized' ? ' uncategorized' : ''
 
         return (

@@ -12,7 +12,6 @@ class App extends Component {
     See note in containers/Transactions.js
      */
     componentWillMount () {
-        console.log('App.componentWillMount()')
         this.props.fetchCategoriesIfNeeded()
         this.props.fetchBudgets()
     }

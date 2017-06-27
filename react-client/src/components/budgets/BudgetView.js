@@ -74,11 +74,11 @@ const BudgetView = ({ reports }) => (
                         <li className="transactions-not-in-budget">
                             <h3>Not In Budget</h3>
                             <ul>
-                                {reports[month].transactionsNotInBudget.items.map(transaction => (
-                                    <li key={transaction._id}>
-                                        {transaction.amount} --&nbsp;
-                                        {transaction.payee} --&nbsp;
-                                        {transaction.category}
+                                {reports[month].transactionsNotInBudget.items.map(item => (
+                                    <li key={item._id}>
+                                        {item.amount} --&nbsp;
+                                        {item.description} --&nbsp;
+                                        {item.category}
                                     </li>
                                 ))}
                             </ul>
@@ -87,11 +87,11 @@ const BudgetView = ({ reports }) => (
                         <li className="transactions-unknown-categories">
                             <h3>Unknown Categories</h3>
                             <ul>
-                                {reports[month].transactionsUnknownCategories.items.map(transaction => (
-                                    <li key={transaction._id}>
-                                        {transaction.amount} --&nbsp;
-                                        {transaction.payee} --&nbsp;
-                                        {transaction.category}
+                                {reports[month].transactionsUnknownCategories.items.map(item => (
+                                    <li key={item._id}>
+                                        {item.amount} --&nbsp;
+                                        {item.description} --&nbsp;
+                                        {item.category}
                                     </li>
                                 ))}
                             </ul>

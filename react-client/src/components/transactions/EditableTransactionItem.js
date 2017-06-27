@@ -1,7 +1,14 @@
 import React, { Component, PropTypes } from 'react'
-import { prettyAmount } from '../../helpers'
+// import { prettyAmount } from '../../helpers'
 
 class EditableTransactionItem extends Component {
+    static propTypes = {
+        index: PropTypes.number.isRequired,
+        amount: PropTypes.number.isRequired,
+        description: PropTypes.string.isRequired,
+        category: PropTypes.string.isRequired,
+        addTransactionItem: PropTypes.func.isRequired
+    }
 
     handleAmountChange = (event) => {
         this.props.handleItemChange(this.props.index, 'amount', Number(event.target.value))
