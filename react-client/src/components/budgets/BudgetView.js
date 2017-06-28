@@ -76,9 +76,10 @@ const BudgetView = ({ reports }) => (
                             <ul>
                                 {reports[month].transactionsNotInBudget.items.map(item => (
                                     <li key={item._id}>
-                                        {item.amount} --&nbsp;
-                                        {item.description} --&nbsp;
-                                        {item.category}
+                                        <span className="item-amount">{item.amount}</span>
+                                        <span className="item-payee">{item.payee}</span>
+                                        <span className="item-description">{item.description}</span>
+                                        <span className="item-category">{item.category}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -89,9 +90,10 @@ const BudgetView = ({ reports }) => (
                             <ul>
                                 {reports[month].transactionsUnknownCategories.items.map(item => (
                                     <li key={item._id}>
-                                        {item.amount} --&nbsp;
-                                        {item.description} --&nbsp;
-                                        {item.category}
+                                        <span className="item-amount">{item.amount}</span>
+                                        <span className="item-payee">{item.payee}</span>
+                                        <span className="item-description">{item.description}</span>
+                                        <span className="item-category">{item.category}</span>
                                     </li>
                                 ))}
                             </ul>

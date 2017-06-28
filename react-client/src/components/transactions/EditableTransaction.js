@@ -129,8 +129,6 @@ class EditableTransaction extends Component {
 
                     <span className="transaction-account">{transaction.account}</span>
 
-                    <button type="submit" name="submit">Save</button>
-
                     {this.state.items.map((item, index) => {
                         const editableItem = <EditableTransactionItem
                             key={transaction._id + '-' + index}
@@ -145,6 +143,7 @@ class EditableTransaction extends Component {
                         />
                         return editableItem
                     })}
+                    <button type="submit" name="submit">Save</button>
                 </form>
             </li>
         )

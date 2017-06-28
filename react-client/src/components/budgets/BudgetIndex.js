@@ -17,13 +17,20 @@ class BudgetIndex extends Component {
         this.rangeStartDate = {}
         this.rangeEndDate = {}
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.state = { combine: false }
+    }
+
+    handleCombineCheck = (event) => {
+        this.setState({
+            combine: !this.state.combine
+        })
     }
 
     handleSubmit (event) {
         event.preventDefault()
         const { rangeStartDate, rangeEndDate } = this
         let url = `/budgets/view/from/${rangeStartDate.month.value}/${rangeStartDate.year.value}/to/${rangeEndDate.month.value}/${rangeEndDate.year.value}`
-        if (this.combine) url += '?combine=true'
+        if (this.state.combine) url += '?combine=true'
         browserHistory.push(url)
     }
 
@@ -60,7 +67,7 @@ class BudgetIndex extends Component {
                                 </fieldset>
 
                                 <label>
-                                    <input type="checkbox" name="combine" ref={(input) => this.combine = input}/> 
+                                    <input type="checkbox" name="combine" value={this.state.combine} onChange={this.handleCombineCheck} /> 
                                     combine
                                 </label>
 
