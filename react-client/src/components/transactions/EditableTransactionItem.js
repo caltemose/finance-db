@@ -36,7 +36,7 @@ class EditableTransactionItem extends Component {
 
         return (
             <fieldset className="transaction-item" key={index}>
-                <input className="transaction-item-amount" type="number" defaultValue={amount} onChange={ this.handleAmountChange } placeholder="amount" />
+                <input className="transaction-item-amount" type="text" defaultValue={amount} onChange={ this.handleAmountChange } placeholder="amount" />
 
                 <input className="transaction-item-description" type="text" defaultValue={description} onChange={ this.handleDescriptionChange } placeholder="description" />
 
@@ -44,7 +44,7 @@ class EditableTransactionItem extends Component {
 
                 <select value={category} onChange={this.handleCategoryChange} className="transaction-item-category">
                     <option value="">missing</option>
-                    {categories.allIds.map(categoryId => 
+                    {categories.allIds.map(categoryId =>
                         <option key={categoryId} value={categories.byId[categoryId].category}>{categories.byId[categoryId].category}</option>
                     )}
                 </select>
