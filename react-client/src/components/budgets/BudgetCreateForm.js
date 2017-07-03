@@ -4,7 +4,7 @@ import DocumentTitle from 'react-document-title'
 
 import MonthSelector from '../simple/MonthSelector'
 import YearSelector from '../simple/YearSelector'
-import budgetDefaults from '../../ignore/budget-defaults'
+// import budgetDefaults from '../../ignore/budget-defaults'
 
 class BudgetCreateForm extends Component {
     static propTypes = {
@@ -44,7 +44,7 @@ class BudgetCreateForm extends Component {
     }
 
     getDefaultValue (category) {
-        return budgetDefaults[category] || 0
+        return 0 //budgetDefaults[category] || 0
     }
 
     renderCategory (categoryId, i) {
@@ -62,7 +62,7 @@ class BudgetCreateForm extends Component {
 
     render () {
         return (
-            <DocumentTitle title="FDB: Create Budget">
+            <DocumentTitle title="Finances: Create Budget">
                 <div>
                     <h2>Create a Budget</h2>
                     <form className="budget-create-form" onSubmit={this.handleSubmit}>

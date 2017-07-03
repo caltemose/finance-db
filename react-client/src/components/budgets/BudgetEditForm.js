@@ -5,7 +5,7 @@ import moment from 'moment'
 
 import MonthSelector from '../simple/MonthSelector'
 import YearSelector from '../simple/YearSelector'
-import budgetDefaults from '../../ignore/budget-defaults'
+// import budgetDefaults from '../../ignore/budget-defaults'
 
 class BudgetEditForm extends Component {
     static propTypes = {
@@ -49,7 +49,7 @@ class BudgetEditForm extends Component {
     }
 
     getDefaultValue (category) {
-        return budgetDefaults[category] || 0
+        return 0 //budgetDefaults[category] || 0
     }
 
     renderCategory (categoryId, i) {
@@ -73,7 +73,7 @@ class BudgetEditForm extends Component {
             const startYear = startDate.format('YYYY')
             const startMonth = startDate.format('MM')
             return (
-                <DocumentTitle title="FDB: Edit Budget">
+                <DocumentTitle title="Finances: Edit Budget">
                     <div>
                         <h2>Edit Budget</h2>
                         <form className="budget-create-form" onSubmit={this.handleSubmit}>

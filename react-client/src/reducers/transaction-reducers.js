@@ -32,7 +32,8 @@ const updateById = (state, action) => {
                 [action.id]: {
                     ...state[action.id],
                     payee: action.data.payee,
-                    category: action.data.category
+                    category: action.data.category,
+                    items: action.data.items
                 }
             }
 

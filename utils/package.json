@@ -8,8 +8,12 @@
   },
   "author": "Chad L. Altemose",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
+    "args": "^3.0.2",
+    "bluebird": "^3.5.0",
     "line-reader": "^0.4.0",
+    "load-json-file": "^2.0.0",
+    "moment": "^2.18.1",
     "mongodb": "^2.2.12"
   }
 }

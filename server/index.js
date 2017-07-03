@@ -8,7 +8,7 @@ const routes = require('./routes')
 
 const config = {
     port: 3333,
-    mongoUrl: 'mongodb://localhost/finances-db'
+    mongoUrl: 'mongodb://localhost/finances-db-v2'
 }
 
 mongoose.set('debug', true)

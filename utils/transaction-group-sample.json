@@ -1,0 +1,45 @@
+{
+    "docs": [
+        {
+            "_id": "586a3afbc1fb86052203f600",
+            "account": "usaa-credit",
+            "amount": -100,
+            "category": "home-merchandise",
+            "date": "2016-12-29T05:00:00.000Z",
+            "original": {
+                "date": "2016-12-29T05:00:00.000Z",
+                "descriptionEdited": "Target",
+                "description": "TARGET EDGEWOOD         ATL, GA",
+                "category": "merchandise",
+                "amount": -100
+            },
+            "payee": "Target"
+        },
+        {
+            "_id": "586a3afbc1fb86052203f600",
+            "account": "usaa-credit",
+            "amount": -100,
+            "date": "2016-12-29T05:00:00.000Z",
+            "payee": "Target",
+            "original": {
+                "date": "2016-12-29T05:00:00.000Z",
+                "descriptionEdited": "Target",
+                "description": "TARGET EDGEWOOD         ATL, GA",
+                "category": "merchandise",
+                "amount": -100
+            },
+            "items": [
+                {
+                    "description": "Various supplies",
+                    "category": "home-merchandise",
+                    "amount": -20
+                },
+                {
+                    "description": "Prescription",
+                    "category": "medical-prescription",
+                    "amount": -80
+                }
+            ]
+        }
+    ]
+}
