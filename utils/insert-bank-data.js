@@ -5,6 +5,7 @@ const isValidAccount = require('./modules/isValidAccount')
 const checkFileExistence = require('./modules/checkFileExistence')
 const parseBankFile = require('./modules/parseBankFile')
 const insertLinesIntoDatabase = require('./modules/insertLinesIntoDatabase')
+const insertAndDedupe = require('./modules/insertAndDedupe')
 const handleError = require('./modules/handleError')
 
 function checkArgs () {
@@ -35,5 +36,6 @@ checkFileExistence(inputFile)
     .then((result) => {
         return parseBankFile(inputFile, account)
     })
-    .then(insertLinesIntoDatabase)
+    // .then(insertLinesIntoDatabase)
+    .then(insertAndDedupe)
     .catch(handleError)
