@@ -30,7 +30,12 @@ class Transactions extends Component {
     render () {
         return (
             <DocumentTitle title="Finances: Transactions">
-                <TransactionsList categories={this.props.categories} transactions={this.props.transactions} editTransaction={this.onTransactionSave} />
+                <TransactionsList 
+                    payees={this.props.payees}
+                    categories={this.props.categories} 
+                    transactions={this.props.transactions} 
+                    editTransaction={this.onTransactionSave} 
+                />
             </DocumentTitle>
         )
     }
@@ -38,7 +43,8 @@ class Transactions extends Component {
 
 const mapStateToProps = (state) => ({
     transactions: state.transactions,
-    categories: state.categories
+    categories: state.categories,
+    payees: state.payees
 })
 
 const mapDispatchToProps = ({

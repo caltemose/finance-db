@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DocumentTitle from 'react-document-title'
-import { fetchCategoriesIfNeeded, fetchBudgets } from '../actions/actions'
+import { fetchCategoriesIfNeeded, fetchBudgets, fetchPayees } from '../actions/actions'
 import Header from '../components/Header'
 
 class App extends Component {
@@ -14,6 +14,7 @@ class App extends Component {
     componentWillMount () {
         this.props.fetchCategoriesIfNeeded()
         this.props.fetchBudgets()
+        this.props.fetchPayees()
     }
 
     render () {
@@ -35,7 +36,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     fetchCategoriesIfNeeded,
-    fetchBudgets
+    fetchBudgets,
+    fetchPayees
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

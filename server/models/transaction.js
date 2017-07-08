@@ -12,6 +12,7 @@ var schema = mongoose.Schema({
     date: Date,
     account: String,
     payee: String,
+    payeeId: mongoose.Schema.Types.ObjectId,
     notes: String,
     items: [
         { amount: Number, category: String, description: String }
