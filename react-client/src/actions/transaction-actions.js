@@ -36,9 +36,9 @@ export const editTransactionError = (err, id) => ({
     id
 })
 
-export const fetchTransactionsByDate = (startMonth, startYear, endMonth, endYear) => dispatch => {
+export const fetchTransactionsByDate = (startMonth, startYear, endMonth, endYear, category) => dispatch => {
     dispatch(requestTransactions())
-    return fetch(`/api/transactions/from/${startMonth}/${startYear}/to/${endMonth}/${endYear}`)
+    return fetch(`/api/transactions/from/${startMonth}/${startYear}/to/${endMonth}/${endYear}/${category}`)
         .then(response => {
             return response.json()
         })

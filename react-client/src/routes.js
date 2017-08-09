@@ -19,4 +19,5 @@ export default <Route path="/" component={App}>
     <Route path="categories" component={Categories} />
     <Route path="transactions" component={TransactionIndex} />
     <Route path="transactions/from/:startMonth/:startYear/to/:endMonth/:endYear" component={Transactions} />
+    <Route path="transactions/from/:startMonth/:startYear/to/:endMonth/:endYear/byCategory/:category" component={Transactions} />
 </Route>

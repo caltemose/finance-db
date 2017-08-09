@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/from/:startMonth/:startYear/to/:endMonth/:endYear', (req, res) => {
+router.get('/from/:startMonth/:startYear/to/:endMonth/:endYear/:category', (req, res) => {
     const startMoment = moment(req.params.startYear + '-' + req.params.startMonth, 'YYYY-MM')
     const endMoment = moment(req.params.endYear + '-' + req.params.endMonth, 'YYYY-MM')
     // get the last day of the given end month by adding a month and subtracting a day
@@ -25,6 +25,7 @@ router.get('/from/:startMonth/:startYear/to/:endMonth/:endYear', (req, res) => {
         .find(find)
         .sort({ date: -1 })
         .exec((err, transactions) => {
+            // TODO if category supplied, filter transactions by transaction.items[n].category
             if (err) {
                 console.log(err)
                 return res.jsonp({ err: err })

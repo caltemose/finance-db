@@ -19,8 +19,8 @@ class Transactions extends Component {
     the props array of transactions is empty.
     */
     componentDidMount () {
-        const { startMonth, startYear, endMonth, endYear } = this.props.params
-        this.props.fetchTransactionsByDate(startMonth, startYear, endMonth, endYear)
+        const { startMonth, startYear, endMonth, endYear, category } = this.props.params
+        this.props.fetchTransactionsByDate(startMonth, startYear, endMonth, endYear, category)
     }
 
     onTransactionSave (id, payee, items) {
