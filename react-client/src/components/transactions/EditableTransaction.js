@@ -57,10 +57,12 @@ class EditableTransaction extends Component {
         // do line item amounts equal the total?
         const total = this.props.transaction.amount
 
-        const itemsTotal = this.state.items.reduce((prev, curr) => {
+        let itemsTotal = this.state.items.reduce((prev, curr) => {
             const prevVal = typeof(prev) === 'number' ? prev : prev.amount
             return prevVal + curr.amount
         }, 0)
+
+        itemsTotal = Math.round(itemsTotal*100)/100;
 
         if (total !== itemsTotal) {
             console.error('total', total, 'itemsTotal', itemsTotal)

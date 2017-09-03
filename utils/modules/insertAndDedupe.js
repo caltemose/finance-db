@@ -5,7 +5,7 @@ const ObjectId = require('mongodb').ObjectId
 module.exports = function insertAndDedupe (lines) {
     return new Promise((resolve, reject) => {
         // TODO pass mongo URL through arguments instead of hard-coding it
-        MongoClient.connect('mongodb://localhost:27017/finances-db-alt', (err, db) => {
+        MongoClient.connect('mongodb://localhost:27017/finances-db-v2', (err, db) => {
             if (err) {
                 reject(err)
             }
