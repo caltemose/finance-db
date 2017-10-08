@@ -4,7 +4,7 @@ const path = require('path')
 const isValidAccount = require('./modules/isValidAccount')
 const checkFileExistence = require('./modules/checkFileExistence')
 const parseBankFile = require('./modules/parseBankFile')
-const insertLinesIntoDatabase = require('./modules/insertLinesIntoDatabase')
+// const insertLinesIntoDatabase = require('./modules/insertLinesIntoDatabase')
 const insertAndDedupe = require('./modules/insertAndDedupe')
 const handleError = require('./modules/handleError')
 
