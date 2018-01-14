@@ -77,12 +77,10 @@ const BudgetView = ({ reports }) => (
                             <ul>
                                 {reports[month].transactionsNotInBudget.items.map(item => (
                                     <li key={item._id}>
-                                        <Link to={`/transactions/${item._id}`}>
-                                            <span className="item-amount">{item.amount}</span>
-                                            <span className="item-payee">{item.payee}</span>
-                                            <span className="item-description">{item.description}</span>
-                                            <span className="item-category">{item.category}</span>
-                                        </Link>
+                                        <span className="item-amount">{item.amount}</span>
+                                        <Link to={`/transactions/${item._id}`}><span className="item-payee">{item.payee}</span></Link>
+                                        <span className="item-description">{item.description}</span>
+                                        <Link to={`/transactions/by-category/${item.category}`}><span className="item-category">{item.category}</span></Link>
                                     </li>
                                 ))}
                             </ul>
@@ -93,12 +91,10 @@ const BudgetView = ({ reports }) => (
                             <ul>
                                 {reports[month].transactionsUnknownCategories.items.map(item => (
                                     <li key={item._id}>
-                                        <Link to={`/transactions/${item._id}`}>
-                                            <span className="item-amount">{item.amount}</span>
-                                            <span className="item-payee">{item.payee}</span>
-                                            <span className="item-description">{item.description}</span>
-                                            <span className="item-category">{item.category}</span>
-                                        </Link>
+                                        <span className="item-amount">{item.amount}</span>
+                                        <Link to={`/transactions/${item._id}`}><span className="item-payee">{item.payee}</span></Link>
+                                        <span className="item-description">{item.description}</span>
+                                        <Link to={`/transactions/by-category/${item.category}`}><span className="item-category">{item.category}</span></Link>
                                     </li>
                                 ))}
                             </ul>

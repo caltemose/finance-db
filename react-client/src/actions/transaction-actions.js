@@ -56,6 +56,17 @@ export const fetchTransactionsByDate = (startMonth, startYear, endMonth, endYear
         })
 }
 
+export const fetchTransactionsByCategory = (category) => dispatch => {
+    dispatch(requestTransactions())
+    return fetch(`/api/transactions/by-category/${category}`)
+        .then(response => {
+            return response.json()
+        })
+        .then(transactions => {
+            return dispatch(receiveTransactions(transactions))
+        })
+}
+
 // export const fetchTransactionById = (id) => dispatch => {
 //     dispatch(requestTransaction())
 //     return fetch(`/api/transactions/${id}`)

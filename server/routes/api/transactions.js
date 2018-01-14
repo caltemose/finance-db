@@ -53,4 +53,21 @@ router.put('/:id/simple-edit/', (req, res) => {
     })
 })
 
+router.get('/by-category/:category', (req, res) => {
+    const category = req.params.category
+    const find = { 'items.category': category }
+    Transaction
+        .find(find)
+        .sort({ date: -1 })
+        .exec((err, transactions) => {
+            if (err) {
+                console.log(err)
+                return res.jsonp({ err: err })
+            }
+            if (transactions) {
+                return res.jsonp(transactions)
+            }
+        })
+})
+
 module.exports = router

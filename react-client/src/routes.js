@@ -9,6 +9,7 @@ import BudgetViewContainer from './containers/BudgetViewContainer'
 import Categories from './containers/Categories'
 import TransactionIndex from './components/transactions/TransactionIndex'
 import Transactions from './containers/Transactions'
+import TransactionsByCategory from './containers/TransactionsByCategory'
 import Transaction from './containers/Transaction'
 
 export default <Route path="/" component={App}>
@@ -22,4 +23,5 @@ export default <Route path="/" component={App}>
     <Route path="transactions/:id" component={Transaction} />
     <Route path="transactions/from/:startMonth/:startYear/to/:endMonth/:endYear" component={Transactions} />
     <Route path="transactions/from/:startMonth/:startYear/to/:endMonth/:endYear/byCategory/:category" component={Transactions} />
+    <Route path="transactions/by-category/:category" component={TransactionsByCategory} />
 </Route>

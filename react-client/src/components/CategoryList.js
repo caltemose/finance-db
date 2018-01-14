@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import DocumentTitle from 'react-document-title'
+import { Link } from 'react-router'
+
 
 class CategoryList extends Component {
     static propTypes = {
@@ -42,7 +44,9 @@ class CategoryList extends Component {
                                 const category = categories.byId[categoryId]
                                 return (
                                     <li key={category._id}>
-                                        <h3>{category.category}</h3>
+                                        <Link to={`/transactions/by-category/${category.category}`}>
+                                            <h3>{category.category}</h3>
+                                        </Link>
                                         <label onChange={() => onInBudgetChange(category._id, category.inBudget)}>
                                             <input type="checkbox" name="in-budget" defaultChecked={this.setChecked(category.inBudget)} />
                                             in Budget?
