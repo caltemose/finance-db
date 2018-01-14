@@ -83,4 +83,10 @@ const transactions = (state = defaultState, action) => {
     }
 }
 
+export const getTransactionById = (state, id) => {
+    console.log('getTransactionById', id)
+    console.log(state.transactions.byId)
+    return state.transactions.byId[id] || {}
+}
+
 export default transactions

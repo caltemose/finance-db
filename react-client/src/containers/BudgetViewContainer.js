@@ -105,7 +105,7 @@ class BudgetViewContainer extends Component {
 
             transaction.items.forEach((transItem, index) => {
                 let item = { ...transItem }
-                item._id = transaction._id + '-' + index
+                item._id = transaction._id // + '-' + index
                 item.payee = transaction.payee
                 const categoryObject = categoriesByName[item.category]
 

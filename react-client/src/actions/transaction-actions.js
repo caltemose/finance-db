@@ -1,5 +1,7 @@
+// export const REQUEST_TRANSACTION = 'REQUEST_TRANSACTION'
 export const REQUEST_TRANSACTIONS = 'REQUEST_TRANSACTIONS'
 export const RECEIVE_TRANSACTIONS = 'RECEIVE_TRANSACTIONS'
+// export const RECEIVE_TRANSACTION = 'RECEIVE_TRANSACTION'
 export const EDIT_TRANSACTION_PENDING = 'EDIT_TRANSACTION_PENDING'
 export const EDIT_TRANSACTION_COMPLETE = 'EDIT_TRANSACTION_COMPLETE'
 export const EDIT_TRANSACTION_ERROR = 'EDIT_TRANSACTION_ERROR'
@@ -10,6 +12,13 @@ export const requestTransactions = () => {
         type: REQUEST_TRANSACTIONS
     }
 }
+
+// export const requestTransaction = () => {
+//     console.log('requestTransaction()')
+//     return {
+//         type: REQUEST_TRANSACTION
+//     }
+// }
 
 export const receiveTransactions = (transactions) => {
     console.log('receiveTransactions()')
@@ -46,6 +55,17 @@ export const fetchTransactionsByDate = (startMonth, startYear, endMonth, endYear
             return dispatch(receiveTransactions(transactions))
         })
 }
+
+// export const fetchTransactionById = (id) => dispatch => {
+//     dispatch(requestTransaction())
+//     return fetch(`/api/transactions/${id}`)
+//         .then(response => {
+//             return response.json()
+//         })
+//         .then(transaction => {
+//             return dispatch(receiveTransaction(transaction))
+//         })
+// }
 
 export const editTransaction = (id, payee, items) => (dispatch, getState) => {
     console.log('editTransaction', id, payee, items)

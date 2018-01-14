@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import { prettyAmount } from '../../helpers'
 
 const calculateRemainder = (income, expenses) => (
@@ -76,10 +77,12 @@ const BudgetView = ({ reports }) => (
                             <ul>
                                 {reports[month].transactionsNotInBudget.items.map(item => (
                                     <li key={item._id}>
-                                        <span className="item-amount">{item.amount}</span>
-                                        <span className="item-payee">{item.payee}</span>
-                                        <span className="item-description">{item.description}</span>
-                                        <span className="item-category">{item.category}</span>
+                                        <Link to={`/transactions/${item._id}`}>
+                                            <span className="item-amount">{item.amount}</span>
+                                            <span className="item-payee">{item.payee}</span>
+                                            <span className="item-description">{item.description}</span>
+                                            <span className="item-category">{item.category}</span>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
@@ -90,10 +93,12 @@ const BudgetView = ({ reports }) => (
                             <ul>
                                 {reports[month].transactionsUnknownCategories.items.map(item => (
                                     <li key={item._id}>
-                                        <span className="item-amount">{item.amount}</span>
-                                        <span className="item-payee">{item.payee}</span>
-                                        <span className="item-description">{item.description}</span>
-                                        <span className="item-category">{item.category}</span>
+                                        <Link to={`/transactions/${item._id}`}>
+                                            <span className="item-amount">{item.amount}</span>
+                                            <span className="item-payee">{item.payee}</span>
+                                            <span className="item-description">{item.description}</span>
+                                            <span className="item-category">{item.category}</span>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
