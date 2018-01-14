@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { prettyAmount } from '../../helpers'
 
-const calculateRemainder = (income, expenses) => (
+const calculateRemainder = (income, expenses, decimals = 2) => (
     prettyAmount(income - expenses)
 )
 
@@ -66,10 +66,10 @@ const BudgetView = ({ reports }) => (
                             <h4>DIFFERENCE:</h4> {calculateBudgetDifference(reports[month].totalBudgetLimit, reports[month].totalBudgetSpent)}
                             <hr />
                             <h4>UNBUDGETED:</h4>
-                            <span>{prettyAmount(reports[month].transactionsNotInBudget.items.length)}&nbsp; / &nbsp;{prettyAmount(reports[month].transactionsNotInBudget.totalSpent)}</span>
+                            <span>{prettyAmount(reports[month].transactionsNotInBudget.items.length, 0)}&nbsp; / &nbsp;{prettyAmount(reports[month].transactionsNotInBudget.totalSpent)}</span>
                             <br />
                             <h4>UNKNOWN CATEGORIES:</h4>
-                            <span>{prettyAmount(reports[month].transactionsUnknownCategories.items.length)}&nbsp; / &nbsp;{prettyAmount(reports[month].transactionsUnknownCategories.totalSpent)}</span>
+                            <span>{prettyAmount(reports[month].transactionsUnknownCategories.items.length, 0)}&nbsp; / &nbsp;{prettyAmount(reports[month].transactionsUnknownCategories.totalSpent)}</span>
                         </li>
 
                         <li className="transactions-not-in-budget">
