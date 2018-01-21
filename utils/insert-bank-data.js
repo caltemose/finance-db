@@ -6,7 +6,6 @@ const checkFileExistence = require('./modules/checkFileExistence')
 const parseBankFile = require('./modules/parseBankFile')
 // const insertLinesIntoDatabase = require('./modules/insertLinesIntoDatabase')
 const insertAndDedupe = require('./modules/insertAndDedupe')
-const handleError = require('./modules/handleError')
 
 function checkArgs () {
     args
@@ -38,4 +37,4 @@ checkFileExistence(inputFile)
     })
     // .then(insertLinesIntoDatabase)
     .then(insertAndDedupe)
-    .catch(handleError)
+    .catch(error => { throw new Error(error) })

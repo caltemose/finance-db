@@ -10,7 +10,7 @@ function parseArgs () {
     const flags = args.parse(process.argv)
 
     let inputFile = flags.filein
-    
+
     if (!inputFile)
         handleError('No input file provided.')
 
@@ -22,4 +22,4 @@ const inputFile = path.resolve(__dirname, parseArgs())
 checkFileExistence(inputFile)
     .then(convertToV2)
     .then(insertLinesIntoDatabase)
-    .catch(handleError)
+    .catch(error => { throw new Error(error) })

@@ -12,7 +12,7 @@ function parseArgs () {
     const flags = args.parse(process.argv)
 
     let inputFile = flags.filein
-    
+
     if (!inputFile)
         handleError('No input file provided.')
 
@@ -36,4 +36,4 @@ checkFileExistence(inputFile)
         return insertArrayIntoDatabase(databaseUrl, collection, json.docs)
     })
     .then(result => { console.log (result) })
-    .catch(handleError)
+    .catch(error => { throw new Error(error) })
